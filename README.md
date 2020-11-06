@@ -1,2 +1,2 @@
-# FrancescoCasalegno.github.io
-Personal website
+# Francesco Casalegno — Personal Website
+Welcome to my personal website!
