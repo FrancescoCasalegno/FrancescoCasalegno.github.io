@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--  Favicon  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
+    <link rel="manifest" href="../favicons/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicons/favicon.ico">
+
+    <!-- Meta Info -->
+    <title>Francesco Casalegno - Personal Website</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Francesco Casalegno's personal website">
+    <meta name="keywords" content="personal website, blog, data science, machine learning">
+    <meta name="author" content="Francesco Casalegno">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/0bff17aed7.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/darcula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"
+            integrity="sha512-5IwlvN3ATowZMxsKB/BwpqzQuUA/6PBVTrf/6cZ452Sl7TGWqqd0I0r8M9SHmF5C6hh0gCOLRSyDwQEeyEQ3Dw=="
+            crossorigin="anonymous"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">Francesco Casalegno</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-currentpage" href="../blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../resume.html">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>DVC </h1>
+                    <h2>Data Version Control</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h1>What is DVC? <a class="headerlink" id="whatisdvc" href="#whatisdvc"
+                                title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p><a href="https://dvc.org/">DVC</a> (data version control) is an open source
+                tool for tracking datasets and outputs of Data Science and Machine Learning
+                projects.
+            </p>
+
+            <div style="text-align: center;">
+                <img src="../images/dvc.jpg" width="150">
+            </div>
+            <p>DVC is designed to be integrated into your <a href="https://git-scm.com/">Git</a> workflows.
+                On top of that, the interface of DVC is very similar to Git's, so if you are
+                familiar with
+                Git you will find starting to use DVC very easy.
+            </p>
+            <p>
+                So why should you start using DVC if you already have Git to track code and an a Azure
+                instance to store your datasets and models?
+            <ol>
+                <li>DVC integrates seamlessly with both Git and all major storage systems (AWS, Azure, Google
+                    Cloud, HTTP, SSH server, HDFS, ...) and does not require installing and maintaining any
+                    databases.
+                </li>
+                <li>DVC makes your projects and all their related data reproducible and shareable, allowing to
+                    answer questions on how a model or a result was obtained.
+                </li>
+                <li>DVC lets you treat complex Data Science pipelines as a Makefile, so that when something
+                    changes (e.g. a new training dataset, a new choice of model hyperparameters, ...) each stage
+                    of the
+                    pipeline is automatically re-run whenever needed.
+                </li>
+            </ol>
+            </p>
+            <h1>Getting Started
+                <a class="headerlink" id="getstarted" href="#getstarted" title="Permalink to this headline"><i
+                        class="fas fa-link"></i></a></h1>
+            <p>DVC is <a href="https://pypi.org/project/dvc/">available on PyPI</a> and it is very easy to install:</p>
+            <pre><code class="bash">pip install dvc</code></pre>
+            Depending on remote storage you will use, you may want to install specific dependencies.
+            <pre><code class="bash">$ pip install dvc[s3]   # support Amazon S3
+$ pip install dvc[ssh]  # support ssh
+$ pip install dvc[all]  # all supports</code></pre>
+            <p>
+                To use DVC you should work inside of a Git repo. If it does not exist yet, we create and initialize one.
+            <pre><code class="bash">$ mkdir ml_project & cd ml_project
+$ git init
+</code></pre>
+            Then, initializing a DVC project creates and automatically git add a few configuration files. Note how the
+            syntax is similar to Git!
+            <pre><code class="bash">$ dvc init
+$ git status -s
+A  .dvc/.gitignore
+A  .dvc/config
+A  .dvc/plots/confusion.json
+A  .dvc/plots/default.json
+A  .dvc/plots/scatter.json
+A  .dvc/plots/smooth.json
+A  .dvcignore
+
+$ git commit -m "Initialize dvc project"
+</code></pre>
+
+            </p>
+
+            <h1>Data Versioning
+                <a class="headerlink" id="data-versioning" href="#data-versioning" title="Permalink to this headline"><i
+                        class="fas fa-link"></i>
+                </a></h1>
+            <p>Let us assume that in our ML project we have 200,000 images that we want to use to train and test a
+                classification model able to distinguish dogs from cats.
+                <code><pre class="bash">data
+├── train
+│   ├── dogs       # 95,000 pictures
+│   └── cats       # 95,000 pictures
+└── validation
+   ├── dogs        # 5,000 pictures
+   └── cats        # 5,000 pictures
+</pre>
+                </code>
+                Tracking all of these images with Git would be a bad idea, as we are dealing with a lot of binary
+                files. Instead, we can easily track them with DVC.
+
+            </p>
+            <p><code><pre class="bash">$ dvc add data/
+100% Add|██████████|1/1    [00:30, 30.51s/file]
+To track the changes with git, run:
+    git add .gitignore data.dvc
+
+
+$ git add .gitignore  data.dvc
+$ git commit -m "Add first version of data/"
+$ git tag  -a "v1.0"  -m "data v1.0, 200,000 images"
+</pre>
+            </code></p>
+            <p>As you can see, if you are familiar with Git, the syntax of DVC looks straightforward.
+                But what exactly has happened when we executed
+                <code>dvc add data/</code>? Actually, quite a lot of things!
+            <ol>
+                <li>The hash of the content of <code>data/</code> was computed and added to a new data.dvc file
+                    DVC updates <code>.gitignore</code> to tell Git not to track the content of <code>data/</code>.
+                </li>
+                <li>The physical content of <code>data/</code> —i.e. the 200,000 images— has been moved to a cache
+                    (by default the cache is located under <code>.dvc/cache/</code>).
+                </li>
+                <li>The files were linked back to the workspace so that it looks like nothing happened
+                    (the user can configure the link type to use: hard link, soft link, reflink, copy).
+                </li>
+            </ol>
+            </p>
+            <p>Now, what happens when you modify some DVC-tracked data? Let us assume for instance, that you
+                replaced some images in <code>data/train/</code> with higher definition ones, or that you added new
+                training images to <code>data/train/</code>. We can easily check what has changed with <code>dvc
+                    diff</code>:
+            <pre><code class="bash">$ dvc diff
+Modified:
+    data/
+</code></pre>
+            To track these changes we follow the same procedure as before with <code>dvc add
+        </code>, so that DVC will re-compute the hash of <code>data/</code> to know which version of your repo
+            corresponds to which contents.
+            <pre><code class="bash">$ dvc add data/
+$ git diff data.dvc
+ outs:
+-- md5: b8f4d5a78e55e88906d5f4aeaf43802e.dir
++- md5: 21060888834f7220846d1c6f6c04e649.dir
+   path: data
+$ git commit -am "Add images + Improve quality in data/train/"
+$ git tag  -a "v2.0"  -m "data v2.0, 300,000 images in HD"
+</code></pre>
+
+            Now that we have several versions of our dataset <code>data/</code>, we can easily switch from one
+            version to another using Git and DVC.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/dvc_schema.jpg" width="70%">
+            </div>
+            <p>
+            <ol>
+                <li>First, we run <code>git checkout</code> to switch to a specific revision of the project.
+                    This will guarantee that <code>data.dvc</code> contains the hash of the correct version the dataset
+                    we are interested in, but this command does not modify the files in the workspace, i.e. the content
+                    of
+                    <code>data/</code>.
+                    <pre><code class="bash">$ git checkout v1.0
+$ dvc diff
+Modified:
+    data/</code></pre>
+                <li> Second, we fix the mismatch between the hash written in <code>data.dvc</code> and the hash of
+                    the content of <code>data/</code> by running <code>dvc checkout</code>.
+                    This command fetches from the DVC cache the correct version of the dataset based on the hash found
+                    in the <code>data.dvc
+                    </code> file.
+                    <pre><code class="bash">$ dvc checkout
+M       data/
+$ dvc status
+Data and pipelines are up to date.</code></pre>
+                </li>
+            </ol>
+            </p>
+            <h1>Working with Storages
+                <a class="headerlink" id="dvc-storages" href="#dvc-storages" title="Permalink to this headline"><i
+                        class="fas fa-link"></i>
+                </a></h1>
+            <p>
+                A remote storage is for dvc, what a GitHub is for Git.
+            <ol>
+                <li>It is used to push and pull files from your workspace to the remote.</li>
+                <li>It allows easy sharing between developers.</li>
+                <li>It provides a safe backup in case of catastrofic deletions (like <code>rm -rf *</code>).</li>
+            </ol>
+
+            All main remote storages are supported (Azure, AWS, Google Cloud, etc.).
+            However, as for Git, nothing prevents us to use a remote storage located in the same filesystem.
+            <pre><code class="bash">$ mkdir -p  ~/tmp/dvc_storage
+$ dvc remote add  --default loc_remote  ~/tmp/dvc_storage
+Setting 'loc_remote' as a default remote.
+
+$ git add .dvc/config  # DVC wrote here remote storage config
+$ git commit -m "Configure remote storage loc_remote"</code></pre>
+            Now, if we run <code>dvc push</code>, DVC will upload the content of the cache to the remote storage.
+            This is pretty much like a <code>git push</code>.
+            <pre><code class="bash">$ dvc push
+300000 files pushed</code></pre>
+            So, even if by mistake we deleted all data from our workspace and cache, we can retrieve all of it it with
+            <code>dvc pull</code>. Again, this is pretty much like <code>git pull</code>.
+            <pre><code class="bash">$ rm -rf   .dvc/cache   data
+$ dvc pull       # update .dvc/cache with contents from remote
+300000 files fetched
+
+$ dvc checkout   # update workspace, linking data from .dvc/cache
+A       data/</code></pre>
+            </p>
+            <h1>Machine Learning Pipelines<a class="headerlink" id="ml-pipes" href="#ml-pipes"
+                                             title="Permalink to this headline"><i
+                    class="fas fa-link"></i>
+            </a></h1>
+            <p>So far we have seen how <code>dvc add</code> can be used to track large files or datasets. When we
+                work on Machine Learning projects, trained models are typical examples of large files we would like
+                to track.
+            </p>
+            <p>However, we also want to track how such models (as well as other outputs of our ML pipeline) were
+                generated, for reproducibility and better tracking. Let us consider the following example of a
+                Machine Learning pipeline for a NLP (Natural Language Processing) project of sentiment analysis.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/dvc_dag.jpg" width="100%" alt="ML pipeline graph">
+            </div>
+            <p>
+                To track each stage of this pipeline with DVC, we can run the pipeline stage and track its output
+                together with all the dependencies with <code>dvc run</code>:
+            <pre><code class="bash">$ dvc run -n prepare \  # name of the stage
+    -p prepare.seed \   # dependency (parameter)
+    -p prepare.split \  # dependency (parameter)
+    -d src/prepare.py \ # dependency (file)
+    -d data/data.xml \  # dependency (file)
+    -o data/prepared \  # output
+    python src/prepare.py data/data.xml  # command to run</code></pre>
+            The parameter dependencies declared above are read from a <code>params.yaml</code> file that could look
+            like this:
+            <pre><code class="yaml">prepare:
+ split: 0.20
+ seed: 20170428
+
+featurize:
+ max_feats: 500
+ ngrams: 1
+
+...</code></pre>
+            </p>
+            <p>There are several advantages of using this <code>dvc run</code> approach instead of running the pipeline
+                stages, and then tracking the output artifacts with <code>dvc add</code>.
+            <ol>
+                <li>Outputs are automatically tracked (i.e. saved in <code>.dvc/cache</code>).</li>
+                <li>Pipeline stages with parameters names are saved in a <code>dvc.yaml</code> file.</li>
+                <li>Dependency files and parameters as well as outputs are all hashed and tracked in a
+                    <code>dvc.lock</code>
+                    file.
+                </li>
+                <li>The file <code>dvc.yaml</code> works as a <code>Makefile</code>, in the
+                    sense that we can reproduce each stage of the pipeline with <code>dvc repro prepare</code>, which
+                    automatically decides to re-run each stage only if one of the dependencies has changed.
+                </li>
+
+            </ol>
+            Let's have a closer look at <code>dvc.yaml</code>, which as said describes the graph structure of the data
+            pipeline,
+            similar to how
+            a <code>Makefile</code> works for building software.
+            <pre><code class="yaml">stages:
+ prepare:
+   cmd: python src/prepare.py data/data.xml
+   deps:
+   - data/data.xml
+   - src/prepare.py
+   params:
+   - prepare.seed
+   - prepare.split
+   outs:
+   - data/prepared</code></pre>
+            As for the <code>dvc.lock</code> generated by <code>dvc run</code> , it is a bit like the <code>*
+            .dvc</code> files generated by <code>dvc add</code>.
+            In particular, <code>code.lock</code> matches <code>dvc.lock</code> and describes latest pipeline state
+            in order to:
+            <ol>
+                <li>track intermediate and final artifacts (like a <code>*.dvc</code> file)</li>
+                <li>allow DVC to detect when stage defs or dependencies changed, to trigger re-run when <code>dvc repro
+                </code> is called.
+                </li>
+            </ol>
+            <pre><code class="yaml">prepare:
+ cmd: python src/prepare.py data/data.xml
+ deps:
+ - path: data/data.xml
+   md5: a304afb96060aad90176268345e10355
+ - path: src/prepare.py
+   md5: 285af85d794bb57e5d09ace7209f3519
+ params:
+   params.yaml:
+     prepare.seed: 20170428
+     prepare.split: 0.2
+ outs:
+ - params: data/prepared
+   md5: 20b786b6e6f80e2b3fcf17827ad18597.dir</code></pre>
+            </p>
+            <p>If <code>dvc.yaml</code> is like a <code>Makefile</code>, running <code>dvc repro</code> is similar to
+                running the <code>make</code> command. Once we have run all stages of the pipeline, if we change one
+                of the
+                dependencies and run <code>dvc repro train</code>, only the affected stages will be re-run.
+            <pre><code class="bash">$ sed -i -e "s@max_features: 500@max_features: 1500@g" params.yaml
+$ dvc repro train
+'data/data.xml.dvc' didn't change, skipping
+Stage 'prepare' didn't change, skipping
+Running stage 'featurize' with command:
+	python src/featurization.py data/prepared data/features
+Updating lock file 'dvc.lock'
+Running stage 'train' with command:
+	python src/train.py data/features model.pkl
+Updating lock file 'dvc.lock'
+To track the changes with git, run:
+	git add dvc.lock</code></pre>
+            </p>
+            <p>Finally, a useful feature of DVC pipelines is that it easily allow to compare parameters and
+                scores of models corresponding to different versions.
+            <pre><code class="bash">$ dvc params diff
+Path		   Param                   Old    New
+params.yaml  featurize.max_features  500    1500
+
+$ dvc metrics diff
+Path         Metric    Value    Change
+scores.json  auc       0.61314  0.07139</code></pre>
+            </p>
+            <h1>Conclusions<a class="headerlink" id="conclusions" href="#conclusions"
+                              title="Permalink to this headline"><i
+                    class="fas fa-link"></i>
+            </a></h1>
+            <ol>
+                <li>DVC is a simple yet powerful version control system for large ML data and artifacts.</li>
+                <li>DVC integrates with Git through <code>*.dvc</code> and <code>dvc.lock</code> files, to version
+                    files and
+                    pipelines, respectively.
+                </li>
+                <li>To track raw ML data files, use <code>dvc add</code> — e.g. for input dataset.</li>
+                <li>To track intermediate or final results of a ML pipeline, use <code>dvc run</code> — e.g. for model
+                    weights,
+                    dataset.
+                </li>
+
+                <li>To easily compare parameters and results of two versions of a pipeline, use <code>dvc params
+                    diff</code> and
+                    <code>dvc metrics diff</code>, respectively.
+                </li>
+
+            </ol>
+
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://www.linkedin.com/in/francescocasalegno/">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/FrancescoCasalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://medium.com/@francesco.casalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-medium-m fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                </ul>
+                                <hr>
+                <p class="copyright text-muted">Copyright &copy; Francesco Casalegno 2020</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- Custom scripts for this template -->
+
+</body>
+</html>
