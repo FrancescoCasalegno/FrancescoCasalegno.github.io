@@ -99,6 +99,7 @@ img::-moz-selection {
 #mainNav .navbar-brand {
     font-size: 20px;
     color: #de2222;
+    font-weight: 900;
 }
 
 #mainNav button.navbar-toggler {
@@ -156,6 +157,7 @@ img::-moz-selection {
     #mainNav .navbar-brand {
         padding: 10px 20px;
         color: #de2222;
+        font-weight: 900;
     }
 
 
@@ -195,10 +197,12 @@ img::-moz-selection {
     #mainNav.is-fixed .navbar-brand {
         font-size: 20px;
         color: #de2222;
+        navbar-brand: 900;
     }
 
     #mainNav.is-fixed .navbar-brand:focus, #mainNav.is-fixed .navbar-brand:hover {
         color: #de2222;
+        font-weight: 900;
     }
 
     #mainNav.is-fixed .navbar-nav > li.nav-item > a {
