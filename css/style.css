@@ -97,9 +97,32 @@ img::-moz-selection {
 }
 
 #mainNav .navbar-brand {
-    font-weight: 800;
-    color: #343a40;
+    font-size: 20px;
+    color: #de2222;
 }
+
+#mainNav button.navbar-toggler {
+    color: #f1f3f4;
+    font-size: 20px;
+}
+
+#navbarResponsive ul.navbar-nav li.nav-item a.nav-link {
+    color: #f1f3f4;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+#navbarResponsive ul.navbar-nav li.nav-item a.nav-link.nav-currentpage {
+    color: #de2222;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+#navbarResponsive ul.navbar-nav li.nav-item a.nav-link:hover {
+    color: #de2222;
+    font-size: 20px;
+}
+
 
 #mainNav .navbar-toggler {
     font-size: 12px;
