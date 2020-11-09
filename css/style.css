@@ -1,17 +1,30 @@
 body {
-    font-size: 20px;
-    color: #f1f3f4;
-    background-color: #202123;
+    font-size: 18px;
+    color: #ccc;
+    background-color: #38444c;
     font-family: 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 a {
-    color: #f1f3f4;
-    /*transition: all 0.2s;*/
+    color: #ccc;
+    text-decoration: none;
 }
 
 a:hover, a:focus {
-    color: #de2222;
+    color: #eb1b61;
+    text-decoration: none;
+}
+
+p a {
+    border-bottom: 2px dotted #ccc;
+}
+
+p a:hover {
+    border-bottom: 2px dotted #eb1b61;
+}
+
+strong {
+    color: #eb1b61;
 }
 
 
@@ -20,23 +33,27 @@ p {
     /*margin: 30px 0;*/
 }
 
-p a {
-    text-decoration: underline;
-}
+/*p a {*/
+/*    text-decoration: none;*/
+/*}*/
 
 div.container div.row p strong {
     text-decoration: none;
-    color: #de2222;
+    color: #eb1b61;
+}
+
+code:not([class]) {
+    color: #eb1b61;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 800;
-    font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
-    color: #de2222;
+    font-family: 'Arial', 'Helvetica Neue', sans-serif;
+    color: #eb1b61;
 }
 
 div.site-heading h1, div.site-heading h2 {
-    color: #f1f3f4;
+    color: #ccc;
 }
 
 
@@ -87,7 +104,7 @@ img::-moz-selection {
 #mainNav {
     position: absolute;
     font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
-    background-color: #202123;
+    background-color: #38444c;
     border: 0;
     padding: 0;
     margin: 0;
@@ -97,31 +114,31 @@ img::-moz-selection {
 }
 
 #mainNav .navbar-brand {
-    font-size: 20px;
-    color: #de2222;
+    font-size: 18px;
+    color: #eb1b61;
     font-weight: 900;
 }
 
 #mainNav button.navbar-toggler {
-    color: #f1f3f4;
-    font-size: 20px;
+    color: #ccc;
+    font-size: 18px;
 }
 
 #navbarResponsive ul.navbar-nav li.nav-item a.nav-link {
-    color: #f1f3f4;
-    font-size: 20px;
+    color: #ccc;
+    font-size: 18px;
     padding: 10px 20px;
 }
 
 #navbarResponsive ul.navbar-nav li.nav-item a.nav-link.nav-currentpage {
-    color: #de2222;
-    font-size: 20px;
+    color: #eb1b61;
+    font-size: 18px;
     padding: 10px 20px;
 }
 
 #navbarResponsive ul.navbar-nav li.nav-item a.nav-link:hover {
-    color: #de2222;
-    font-size: 20px;
+    color: #eb1b61;
+    font-size: 18px;
 }
 
 
@@ -134,7 +151,7 @@ img::-moz-selection {
 }
 
 #mainNav .navbar-nav > li.nav-item > a {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     letter-spacing: 1px;
     /*text-transform: uppercase;*/
@@ -142,13 +159,13 @@ img::-moz-selection {
 
 #mainNav .navbar-nav > li.nav-item > a.nav-currentpage {
     padding: 10px 20px;
-    color: #de2222;;
+    color: #eb1b61;;
 }
 
 @media only screen and (min-width: 992px) {
     #mainNav {
         border-bottom: 1px solid transparent;
-        background: #202123;
+        background: #38444c;
         position: -webkit-sticky;
         position: sticky;
         top: 0;
@@ -156,23 +173,23 @@ img::-moz-selection {
 
     #mainNav .navbar-brand {
         padding: 10px 20px;
-        color: #de2222;
+        color: #eb1b61;
         font-weight: 900;
     }
 
 
     #mainNav .navbar-nav > li.nav-item > a {
         padding: 10px 20px;
-        color: #f1f3f4;
+        color: #ccc;
     }
 
     #mainNav .navbar-nav > li.nav-item > a.nav-currentpage {
         padding: 10px 20px;
-        color: #de2222;
+        color: #eb1b61;
     }
 
     #mainNav .navbar-nav > li.nav-item > a:focus, #mainNav .navbar-nav > li.nav-item > a:hover {
-        color: #de2222;
+        color: #eb1b61;
     }
 }
 
@@ -195,22 +212,22 @@ img::-moz-selection {
     }
 
     #mainNav.is-fixed .navbar-brand {
-        font-size: 20px;
-        color: #de2222;
+        font-size: 18px;
+        color: #eb1b61;
         navbar-brand: 900;
     }
 
     #mainNav.is-fixed .navbar-brand:focus, #mainNav.is-fixed .navbar-brand:hover {
-        color: #de2222;
+        color: #eb1b61;
         font-weight: 900;
     }
 
     #mainNav.is-fixed .navbar-nav > li.nav-item > a {
-        color: #de2222;
+        color: #eb1b61;
     }
 
     #mainNav.is-fixed .navbar-nav > li.nav-item > a:focus, #mainNav.is-fixed .navbar-nav > li.nav-item > a:hover {
-        color: #de2222;
+        color: #eb1b61;
     }
 
     #mainNav.is-visible {
@@ -242,7 +259,7 @@ header.masthead .page-heading,
 header.masthead .post-heading,
 header.masthead .site-heading {
     padding: 200px 0 150px;
-    color: #f1f3f4;
+    color: #ccc;
 }
 
 @media only screen and (min-width: 768px) {
@@ -299,7 +316,7 @@ header.masthead .post-heading {
 }
 
 header.masthead .post-heading .meta {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
     font-style: italic;
     font-family: 'Roboto', 'Helvetica Neue', sans-serif;
@@ -312,7 +329,7 @@ header.masthead .post-heading .meta a {
 @media only screen and (min-width: 768px) {
     header.masthead .post-heading h1 {
         font-size: 55px;
-        color: #f1f3f4;
+        color: #ccc;
     }
 
     header.masthead .post-heading {
@@ -340,17 +357,17 @@ header.masthead .post-heading .meta a {
     /*margin: 0 0 10px;*/
 }
 
-.post-preview > .post-meta {
+.post-preview .post-meta {
     font-size: 18px;
-    font-style: italic;
+    /*font-style: italic;*/
     margin-top: 0;
     color: #868e96;
 }
 
-.post-preview > .post-meta > a {
-    text-decoration: none;
-    /*color: #212529;*/
-}
+/*.post-preview > .post-meta > a {*/
+/*    text-decoration: none;*/
+/*    !*color: #212529;*!*/
+/*}*/
 
 .post-preview > .post-meta > a:focus, .post-preview > .post-meta > a:hover {
     text-decoration: underline;
@@ -462,16 +479,16 @@ footer .copyright {
 }
 
 li.list-inline-item a {
-     color: #de2222;
+     color: #eb1b61;
 }
 li.list-inline-item a:hover {
-    text-shadow: -1px 0 #f1f3f4, 0 1px #f1f3f4, 1px 0 #f1f3f4, 0 -1px #f1f3f4;
+    text-shadow: -1px 0 #ccc, 0 1px #ccc, 1px 0 #ccc, 0 -1px #ccc;
 }
 
 a.headerlink {
     visibility: hidden;
     opacity: 0.3;
-    color: #de2222;
+    color: #eb1b61;
 }
 
 h1:hover > a.headerlink,
@@ -516,14 +533,26 @@ div.desc {
 }
 
 a h2.post-title, a p {
-    color: #f1f3f4;
+    color: #ccc;
     margin: 1px 0px 1px 0px;
 }
 h2.post-title {
     margin: 1px 0px 1px 0px;
 }
 a:hover h2.post-title, a:hover p {
-    color: #de2222;
+    color: #eb1b61;
     margin: 1px 0px 1px 0px;
 
+}
+
+div.post-preview a h2.post-title {
+    color: #eb1b61;
+}
+
+div.post-preview a:hover p{
+    color: #eb1b61;
+}
+
+hr.post-hr {
+    background-color: #eb1b61;
 }

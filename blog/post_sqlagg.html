@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--  Favicon  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
+    <link rel="manifest" href="../favicons/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicons/favicon.ico">
+
+    <!-- Meta Info -->
+    <title>Francesco Casalegno - Personal Website</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Francesco Casalegno's personal website">
+    <meta name="keywords" content="personal website, blog, data science, machine learning">
+    <meta name="author" content="Francesco Casalegno">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/0bff17aed7.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/darcula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"
+            integrity="sha512-5IwlvN3ATowZMxsKB/BwpqzQuUA/6PBVTrf/6cZ452Sl7TGWqqd0I0r8M9SHmF5C6hh0gCOLRSyDwQEeyEQ3Dw=="
+            crossorigin="anonymous"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">Francesco Casalegno</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-currentpage" href="../blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../resume.html">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>SQL</h1>
+                    <h2>"GROUP BY" vs "PARTITION BY"</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h1>Why should you Care? <a class="headerlink" id="he1" href="#he1"
+                                        title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+
+            <p>
+                When we manipulate data from a SQL database, we often need to compute operations that
+                depend on values scattered across several rows. For instance, it is important to be able to compute
+                sums or averages. In this post we will see how the SQL clauses <code>GROUP BY</code> and
+                <code>PARTITION BY</code> enable us to do that.
+            </p>
+
+            <p>
+                To clarify the usage of these functions, let's consider the table <code>covid</code>
+                containing the number of new COVID-19 cases by day in a few countries.
+            </p>
+            <pre><code class="sql">mysql> SELECT *
+       FROM covid
+       ORDER BY date, country;
++---------+------------+-----------+
+| country | date       | new_cases |
++---------+------------+-----------+
+| Germany | 2020-03-01 |        51 |
+| Italy   | 2020-03-01 |       566 |
+| USA     | 2020-03-01 |      NULL |
+| Germany | 2020-03-02 |        33 |
+| Italy   | 2020-03-02 |       342 |
+| USA     | 2020-03-02 |        16 |
+| Germany | 2020-03-03 |        38 |
+| Italy   | 2020-03-03 |       466 |
+| USA     | 2020-03-03 |        21 |
+| Germany | 2020-03-04 |        52 |
+| Italy   | 2020-03-04 |       587 |
+| USA     | 2020-03-04 |        36 |
+| Germany | 2020-03-05 |       109 |
+| Italy   | 2020-03-05 |       769 |
+| USA     | 2020-03-05 |        67 |
++---------+------------+-----------+</code></pre>
+            <p>
+                In this blog we will see how to use <code>GROUP BY</code> and <code>PARTITION BY</code> to solve three
+                different use cases.
+            <ul>
+                <li><strong id="uc1">Use Case 1.</strong> How many new cases, on average, does each country have?</li>
+                <li><strong id="uc2">Use Case 2.</strong> What is the total cumulative number of cases per country on
+                    each day?
+                </li>
+                <li><strong id="uc3">Use Case 3.</strong> The number of new cases oscillates day by day, how do we
+                    compute a moving
+                    average over 3 days?
+                </li>
+            </ul>
+
+            </p>
+
+            <h1><code>GROUP BY</code>: Aggregate Functions <a class="headerlink" id="he2" href="#he2"
+                                                              title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                In SQL, <strong>aggregate functions</strong> operate on sets of values, returning a single
+                value. Examples
+                of
+                commonly used
+                aggregate functions are the following.
+            <ul>
+                <li><code>COUNT(*)</code>: number of rows retrieved.</li>
+                <li><code>AVG(col)</code>: average of values in <code>col</code>.</li>
+                <li><code>SUM(col)</code>: sum of values in <code>col</code>.</li>
+                <li><code>MAX(col), MIN(col)</code>: max / min value in <code>col</code>.</li>
+            </ul>
+            </p>
+            <p>
+                The clause <code>GROUP BY</code> is used together with aggregate functions to define on which subset
+                of rows the operation is to be computed. For <a href="#uc1">Use Case 1</a> we want to know the
+                average number of new cases&mdash;which can be computed using <code>AVG(new_cases)</code>&mdash;for each
+                country&mdash;which can be achieved using <code>GROUP BY country</code>&mdash;so the query we need is
+                the following.
+            <pre><code class="sql">mysql> SELECT country, AVG(new_cases) avg_new_cases
+       FROM covid GROUP BY country
+       ORDER BY country;
++---------+---------------+
+| country | avg_new_cases |
++---------+---------------+
+| Germany |       56.6000 |
+| Italy   |      546.0000 |
+| USA     |       35.0000 |
++---------+---------------+</code></pre>
+            </p>
+            <p>In graphical terms, this is how this query operates.
+                <img src="../images/sql_aggr.jpg" width="100%" alt="SQL Aggregation with &quot;GROUP BY&quot;">
+
+            </p>
+            <p>Sometimes we just want to compute an operation on the whole table, in which case we have to omit the
+                <code>GROUP BY</code> clause. For instance, to compute the total number of new cases in any country
+                in this period of five days, we can use the following query.
+            <pre><code class="sql">mysql> SELECT SUM(new_cases) tot_cases
+       FROM covid;
++-----------+
+| tot_cases |
++-----------+
+|      3153 |
++-----------+</code></pre>
+            </p>
+
+            <p>Finally, it may be useful to have at the same time the results aggregated by country&mdash;what you
+                get by
+                <code>GROUP BY</code>&mdash;as well as the results aggregated across all rows. This can be achieved
+                using
+                the clause <code>WITH ROLLUP</code>. As an example, the following query computes the total number of
+                new cases per country and overall (this latter goes under the special label <code>NULL</code>).
+            <pre><code class="sql">mysql> SELECT country, SUM(new_cases) tot_cases
+       FROM covid
+       GROUP BY country
+       WITH ROLLUP
+       ORDER BY country;
++---------+-----------+
+| country | tot_cases |
++---------+-----------+
+| NULL    |      3153 |
+| Germany |       283 |
+| Italy   |      2730 |
+| USA     |       140 |
++---------+-----------+</code></pre>
+            </p>
+
+            <h1><code>PARTITION BY</code>: Window Functions <a class="headerlink" id="he3" href="#he3"
+                                                               title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                In SQL, <strong>window functions</strong> operate by considering, for each row of a given query, a
+                set of rows related to that row. With a few exceptions, virtually all aggregate functions can also be
+                used as window functions. On top of those, SQL supports window functions that are nonaggregate
+                functions, of which the commonly used are the following.
+            </p>
+            <p>
+            <ul>
+                <li><code>ROW_NUMBER()</code>: index of current row within a partition.</li>
+                <li><code>RANK()</code>: same as <code>ROW_NUMBER(col)</code>, but if an entry is repeated in a
+                    partition their index is different while their rank is the same.
+                </li>
+                <li><code>FIRST_VALUE(col), LAST_VALUE(col), NTH_VALUE(col)</code>: first / last / n-th element in
+                    a partition.
+                </li>
+                <li><code>LEAD(col), LAG(col)</code>: value of the previous / next row in a partition.</li>
+            </ul>
+            </p>
+            <p>
+                If <code>GROUP BY</code> is used for aggregate functions to specify the set of rows to be aggregated,
+                for window function we have to use the <code>OVER (window_spec)</code> clause to specify how to
+                partition rows into groups to be processed by the window function.
+            </p>
+            <p>
+                The structure of <code>window_spec</code> can be broken down into three components, all of which are
+                optional. If you don't specify any of the components, the trivial <code>OVER()</code> clause will
+                take all the rows in the table.
+            <pre><code class="sql">window_spec:
+    [PARTITION BY col] [ORDER BY col] frame_spec</code> </pre>
+            The first two components are easy to understand.
+            <ul>
+                <li><code>PARTITION BY col</code> works exactly in the same way of <code>GROUP BY</code>, i.e. splits
+                    the
+                    table into various subsets of rows.
+                </li>
+                <li><code>ORDER BY col</code> is also nothing new, just a regular clause to sort the rows in each
+                    subset of rows.
+                </li>
+            </ul>
+            The only tricky part of <code>window_spec</code> is the third component <code>frame_spec</code>. A
+            frame specification defines, for each row of a partition, an interval of rows of the partition that should
+            be considered to apply the window function. The frame specification must be given in the format
+            <pre><code class="sql">frame_spec:
+    ROWS BETWEEN frame_begin AND frame_end</code></pre>
+            where <code>frame_begin</code> and <code>frame_end</code> are to be chosen among the following options.
+            <ul>
+                <li><code>CURRENT ROW</code>: the current row.</li>
+                <li><code>UNBOUNDED PRECEDING</code>: the first row in the partition.</li>
+                <li><code>UNBOUNDED FOLLOWING</code>: the last row in the partition.</li>
+                <li><code>n PRECEDING</code>: the n-th preceding row in the partition.</li>
+                <li><code>n FOLLOWING</code>: the n-th following row in the partition.</li>
+            </ul>
+            As a side comment, in case the desired <code>frame_end</code> is just the current row, SQL allows to use
+            the shorter equivalent clause
+            <pre><code class="sql">ROWS frame_start</code></pre>
+            instead of
+            <pre><code class="sql">ROWS BETWEEN frame_start AND CURRENT ROW</code></pre>
+            Here are a couple of examples of <code>frame_spec</code>, showing how different subset of rows in
+            the partition are used to compute <code>AVG(new_cases)</code>.
+            <img src="../images/partition_by.jpg" width="100%" alt="SQL Windows with &quot;PARTITION BY&quot;">
+
+            So now, after this long discussion on <code>PARTITION BY</code> and window functions, we are finally able
+            to solve <a href="#uc2">Use Case 2</a> and <a href="#uc3">Use Case 3</a>!
+            </p>
+            <p>
+                Let's start with <a href="#uc2">Use Case 2</a>, i.e. computing the cumulative number of new cases per
+                country on each day. To compute sums of new cases we can use <code>SUM(new_cases)</code>. To specify
+                that we want sums to be computed by country we will use <code>PARTITION BY country</code>. Finally, a
+                cumulative sum means that our frame must start with the first row of the partition and end with the
+                current row, we will use <code>ROWS UNBOUNDED PRECEDING</code>&mdash;or equivalently <code>ROWS
+                BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</code>.
+            <pre><code class="sql">mysql> SELECT country,
+              date,
+              new_cases,
+              SUM(new_cases) OVER (PARTITION BY country
+                                   ORDER BY date
+                                   ROWS UNBOUNDED PRECEDING) my_avg
+       FROM covid,
+       ORDER BY country, date;
+
++---------+------------+-----------+---------+
+| country | date       | new_cases | cum_sum |
++---------+------------+-----------+---------+
+| Germany | 2020-03-01 |        51 |      51 |
+| Germany | 2020-03-02 |        33 |      84 |
+| Germany | 2020-03-03 |        38 |     122 |
+| Germany | 2020-03-04 |        52 |     174 |
+| Germany | 2020-03-05 |       109 |     283 |
+| Italy   | 2020-03-01 |       566 |     566 |
+| Italy   | 2020-03-02 |       342 |     908 |
+| Italy   | 2020-03-03 |       466 |    1374 |
+| Italy   | 2020-03-04 |       587 |    1961 |
+| Italy   | 2020-03-05 |       769 |    2730 |
+| USA     | 2020-03-01 |      NULL |    NULL |
+| USA     | 2020-03-02 |        16 |      16 |
+| USA     | 2020-03-03 |        21 |      37 |
+| USA     | 2020-03-04 |        36 |      73 |
+| USA     | 2020-03-05 |        67 |     140 |
++---------+------------+-----------+---------+</code> </pre>
+            </p>
+            Now, as for <a href="uc3">Use Case 3</a>, we want to compute a moving average centered over a period of 3
+            days. This
+            means that we want to use the function <code>AVG(new_cases)</code> and specify the frame to include rows
+            from previous day to next day so <code>ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING</code>.
+            <pre><code class="sql">mysql> SELECT country,
+       date,
+       new_cases,
+       AVG(cases) OVER (PARTITION BY country
+                        ORDER BY DATE
+                        ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) mov_avg
+       FROM covid
+       ORDER BY country;
++---------+------------+-----------+----------+
+| country | date       | new_cases | mov_avg  |
++---------+------------+-----------+----------+
+| Germany | 2020-03-01 |        51 |  42.0000 |
+| Germany | 2020-03-02 |        33 |  40.6667 |
+| Germany | 2020-03-03 |        38 |  41.0000 |
+| Germany | 2020-03-04 |        52 |  66.3333 |
+| Germany | 2020-03-05 |       109 |  80.5000 |
+| Italy   | 2020-03-01 |       566 | 454.0000 |
+| Italy   | 2020-03-02 |       342 | 458.0000 |
+| Italy   | 2020-03-03 |       466 | 465.0000 |
+| Italy   | 2020-03-04 |       587 | 607.3333 |
+| Italy   | 2020-03-05 |       769 | 678.0000 |
+| USA     | 2020-03-01 |      NULL |  16.0000 |
+| USA     | 2020-03-02 |        16 |  18.5000 |
+| USA     | 2020-03-03 |        21 |  24.3333 |
+| USA     | 2020-03-04 |        36 |  41.3333 |
+| USA     | 2020-03-05 |        67 |  51.5000 |
++---------+------------+-----------+----------+</code></pre>
+
+            </p>
+
+            <h1>Conclusions <a class="headerlink" id="he4" href="#he4"
+                               title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+            <ol>
+                <li>Aggregate functions are used with <code>GROUP BY</code> to compute a single aggregate value (e.g. a
+                    sum, mean, etc.) from each specified set of rows.
+                </li>
+                <li>You can use <code>WITH ROLLUP</code> to compute also meta-aggregate values.</li>
+                <li>Window functions are used with
+                    <code>OVER (window_spec)</code> to compute, for each row, a value that depends on a subset of rows
+                    within a
+                    given partition.
+                </li>
+                <li>The <code>window_spec</code> defines how to partition the table with
+                    <code>PARTITION BY</code>, how to sort the rows within each partition with <code>ORDER BY</code>,
+                    and
+                    the frame of rows within the partition to be considered to compute the value of each rows with
+                    <code>ROWS BETWEEN frame_begin AND frame_end</code>.
+                </li>
+            </ol>
+            </p>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://www.linkedin.com/in/francescocasalegno/">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/FrancescoCasalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://medium.com/@francesco.casalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-medium-m fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <p class="copyright text-muted">Copyright &copy; Francesco Casalegno 2020</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+<!-- Custom scripts for this template -->
+
+</body>
+</html>
