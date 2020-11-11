@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--  Favicon  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
+    <link rel="manifest" href="../favicons/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicons/favicon.ico">
+
+    <!-- Meta Info -->
+    <title>Francesco Casalegno - Personal Website</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Francesco Casalegno's personal website">
+    <meta name="keywords" content="personal website, blog, data science, machine learning">
+    <meta name="author" content="Francesco Casalegno">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/0bff17aed7.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/darcula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"
+            integrity="sha512-5IwlvN3ATowZMxsKB/BwpqzQuUA/6PBVTrf/6cZ452Sl7TGWqqd0I0r8M9SHmF5C6hh0gCOLRSyDwQEeyEQ3Dw=="
+            crossorigin="anonymous"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">Francesco Casalegno</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-currentpage" href="../blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../resume.html">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>SQL</h1>
+                    <h2>Faster "SELECT" with Indexes</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h1>What are indexes? Why we need them? <a class="headerlink" id="he1" href="#he1"
+                                                       title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                When you work with relatively small SQL databases, the runtime of queries may not an important issue.
+                But as soon as tables grow in size and queries get more complex, performance may become a critical
+                element to consider when designing your database.
+            </p>
+            <p>
+                <strong>Indexes</strong> are the best way to improve the runtime of <code>SELECT</code> operations.
+                An index consists of an efficient data structure whose entries act like pointers to the table rows,
+                allowing a query to quickly determine which rows match a condition in the WHERE clause, and retrieve the
+                other column values for those rows.
+            </p>
+            <p>In MySQL, all data types can be indexed, and the data structure used for an index depends on the type
+                of the column.
+            <ul>
+                <li>Almost all indexes use <a href="https://en.wikipedia.org/wiki/B-tree">B-trees</a>.</li>
+                <li>Indexes on spatial data (e.g. Cartesian coordinates) use <a
+                        href="https://en.wikipedia.org/wiki/R-tree">R-trees</a>.
+                </li>
+                <li>Indexes for full text searches use <a
+                        href="https://en.wikipedia.org/wiki/Inverted_index">inverted
+                    indexes.</a></li>
+            </ul>
+            B-trees are self-balancing tree data structures that maintain internal values sorted, allowing to quickly
+            find a specific value, a set of
+            values, or a range of value. So indexes are very convenient for any column comparison involving
+            operators like <code>=</code>, <code><</code>, <code><=</code>, <code>LIKE</code> or <code>BETWEEN</code>.
+            This means that indexes can significantly speed up queries involving a variety of constructs:
+            <code>WHERE
+            </code>, <code>JOIN</code>, <code>MIN()</code> and <code>MAX()</code>, <code>ORDER BY</code>, and <code>GROUP
+            BY</code>.
+
+
+            <div style="text-align: center;">
+                <img src="../images/btree.jpg" width="40%" alt="Example of a B-tree.">
+            </div>
+            </p>
+
+            <p>
+                To understand the impact of introducing an index on the performance of a simple query, let's consider
+                the following example.
+
+            <pre><code class="sql">SELECT COUNT(*) FROM mytable WHERE mycol = 222;</code></pre>
+            If <code>mytable</code> has a large number of rows <strong>n</strong>,
+            it is clear that the runtime of even such a simple query can become very high.
+            <ul>
+                <li>Without an index, this query requires a <a
+                        href="https://en.wikipedia.org/wiki/Full_table_scan">full table scan</a> which has
+                    a runtime of <strong>O(n)</strong>.
+                </li>
+                <li>With an index, this same query takes only <strong>O(log n)</strong>, or even
+                    <strong>O(1)</strong> in some cases.
+                </li>
+            </ul>
+            I tested the runtime of this query on 4 tables of increasing size <strong>n</strong>. The results are
+            really quite impressive, for $n = 10M$ rows using an index allows to achieve a factor 2,000x speedup!
+            <div style="text-align: center;">
+                <img src="../images/scaling_index.jpg" width="80%" alt="Example of a B-tree.">
+            </div>
+            </p>
+            Unfortunately there ain't no such thing as a free lunch, so indexes have both pros and
+
+            cons.
+            <p>
+            <p><strong>Advantages</strong>
+            <ul>
+                <li><code>SELECT</code> statements can be significantly accelerated.</li>
+                <li>MySQL indexes support various use cases: ranges, spatial data, full text searches, etc.</li>
+            </ul>
+            </p>
+            <p><strong>Drawbacks</strong>
+            <ul>
+                <li><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> statements can be slower.</li>
+                <li>An index consumes disk space.</li>
+                <li>If there are several indexes, MySQL takes time to determine which one is best to use.</li>
+                <li>If a query needs to access most of the rows, an index does not improve the runtime.</li>
+            </ul>
+            </p>
+            <h1>Creating indexes <a class="headerlink" id="he2" href="#he2"
+                                    title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                The easiest way to create an index on a column is to do so at the time the table is created.
+            <pre><code class="sql">CREATE TABLE my_table (
+    my_id INT PRIMARY KEY,
+    col1 INT,
+    col2 VARCHAR(10),
+    INDEX my_idx(col1)
+    );</code></pre>
+            However it also possible to create an index once the table already exists.
+            <pre><code class="sql">CREATE INDEX my_idx ON my_table(col1);</code></pre>
+            In many cases creating an index after the data is inserted is more efficient, to the point that
+            it is often recommended to <code>DROP INDEX</code> before a bulk import and then re-create it after that.
+            This is due to the fact that the B-tree of the index needs to remain balanced so <code>INSERT</code> has
+            a <strong>O(log n)</strong> cost.
+            </p>
+            <p>
+                It is important to notice that MySQL automatically creates in certain cases.
+            <ul>
+                <li>An index is created on a column (or set of columns) declared as <code>PRIMARY KEY</code>.</li>
+                <li>An index is created on a column (or set of columns) declared as <code>FOREIGN KEY</code>.</li>
+                <li>If a user requests the creation of an index on
+                    <code>(col1, ...)</code>, then MySQL creates instead an index that also includes the primary key at
+                    the
+                    end:
+                    <code>(col1, ..., pk)
+                    </code></li>
+
+            </ul>
+            </p>
+
+            <h1>Multiple-column indexes <a class="headerlink" id="he3" href="#he3"
+                                           title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                Indexes can be created on more than one column at the same time. This can be particularly useful
+                for queries that test all columns in the index, or the first <strong>q</strong> columns in the index
+                (for any <strong>q</strong>). In particular, when all the the the columns referenced by a query are
+                already in the index, we say that we have a <strong>covering index</strong> and MySQL will run very
+                fast as it just needs to read the content of the index without even needing to follow the pointers to
+                the table rows!
+            </p>
+            <p>
+                For instance, let us consider the following table.
+            <pre><code>CREATE TABLE phone_book (
+last_name VARCHAR(32),
+first_name  VARCHAR(32),
+phone_number CHAR(10),
+address VARCHAR(64)
+INDEX my_idx(last_name, first_name, phone_number)</code></pre>
+            The index <code>my_idx</code> accelerates the following two queries, but for the second one it is not
+            covering
+            (because <code>address</code> is not in the index).
+            <pre><code class="sql">SELECT last_name, first_name
+FROM phone_book
+WHERE last_name <=> "Doe"
+    AND first_name LIKE "Ann%"  # -- Equivalently: first_name BETWEEN "Ann" AND "Anp";</code></pre>
+            <pre><code class="sql">SELECT first_name, last_name, address
+FROM phone_book
+WHERE last_name = "Smith";</code></pre>
+            On the other hand, the following query cannot use the index, as the columns involved in the <code>WHERE
+        </code> must be the first <strong>Q</strong> columns of the index, for some <strong>Q</strong>.
+            Think of a real phone book, indexed by last name and then first name: if you search for numbers relative
+            to a
+            given
+            family name the book will be very useful, but if you look for first names you will have to scan the whole
+            book.
+            So we see that
+            the order of the columns in the multiple-columns indexes we create is very important.
+            <pre><code class="sql">SELECT last_name, first_name
+FROM my_table
+WHERE first_name = "Alice"
+    AND phone_number LIKE "076%"l</code></pre>
+            Also the following query cannot use the index, because it searches on the first (<code>Q</code>=1)
+            column of the index, but a
+            leading
+            wildcard <code>%
+        </code>
+            cannot be
+            translated into any range or equality clause.
+            <pre><code class="sql">SELECT *
+FROM my_table
+WHERE last_name LIKE "%son";</code></pre>
+            </p>
+
+            <h1>Special indexes: <code>FULLTEXT</code>, <code>UNIQUE</code>, <code>SPATIAL</code> <a
+                    class="headerlink" href="#he4" id="he4" title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                When we <code>CREATE INDEX</code>, we can optionally specify an attribute between <code>CREATE</code>
+                and <code>INDEX</code>: MySQL supports <code>FULLTEXT</code>, <code>UNIQUE</code>, <code>SPATIAL</code>.
+
+            </p>
+            <p>
+                There is not much to say about <code>SPATIAL INDEX</code>, other than it is used for indexing
+                columns with spatial data type such as <code>POINT</code> and <code>GEOMETRY</code>. Since this kind
+                of data represents coordinates, it cannot be sorted by a <a
+                    href="https://en.wikipedia.org/wiki/Total_order">simple order</a>. For this reason
+                B-trees
+                cannot
+                be used, and instead MySQL uses <strong>R-trees</strong>, which group nearby points and represent
+                them using their
+                minimum bounding rectangle (R in R-trees stays for rectangle).
+            </p>
+            <p>
+                A <code>UNIQUE INDEX</code> is also easy to understand. It is just a regular index with the extra
+                <code>UNIQUE</code> constraint on the values of the affected column or columns.
+                For some queries, having a unique index allows MySQL to make some optimizations and achieve better
+                performance than it would obtain with an ordinary index. For instance, if we execute <code>SELECT
+                DISTINCT</code> on columns that are covered by the unique index, MySQL is able to skip the sorting and
+                duplicates removal stages.
+            </p>
+            <p>
+                The <code>FULLTEXT INDEX</code> is probably the most interesting one, and it is used for <a
+                    href="https://en.wikipedia.org/wiki/Full-text_search">full-text searches</a>. We have already
+                seen that ordinary indexes can also be created on text columns like <code>CHAR</code>, <code>VARCHAR
+            </code>, and <code>TEXT</code>. However, such indexes are quite limited as they can only be used to
+                search for exact match (e.g. <code>last_name = "Smith"</code>) or initial substrings (e.g.
+                <code>first_name LIKE "Ann%"</code>). Their use case is therefore mainly limited to text columns
+                where each entry consists of one or a couple of words (e.g. names).
+            </p>
+            <p>However, for many use cases a text column can contain long texts, such as the whole text of a blog
+                post or the whole text of a scientific paper. In this cases, we may want to retrieve all entries
+                where a certain term, e.g. <code>"cat"</code> appears in the text. We could do this with
+            <pre><code class="sql">SELECT * WHERE text_col LIKE "%cat%";</code></pre>
+            but in this case the index would not be used, as we saw, and a <a
+                href="https://en.wikipedia.org/wiki/Full_table_scan">full table scan</a> would be executed.
+            The solution is to use a <code>FULLTEXT INDEX</code>, which supports a variety of <strong>full-text
+            searches</strong>
+            such as the following.
+            <ol>
+                <li>Retrieve all texts where <code>"cat"</code> occurs.</li>
+                <li>Retrieve all texts where <code>"dog"</code> or <code>"cat"</code> occur.</li>
+                <li>Retrieve all texts where <code>"dog"</code> and <code>"cat"</code> occur.</li>
+                <li>Retrieve all texts where <code>"dog"</code> occurs but <code>"cat"</code> does not occur.</li>
+                <li>Retrieve all texts where a word starting by <code>"cat"</code> (e.g. <code>cat</code>,
+                    <code>cats</code>,
+                    <code>cattle</code>, ...) occurs.
+                </li>
+            </ol>
+            If we create a <code>FULLTEXT INDEX</code> on <code>text_col</code>, we can run all of these full-text
+            searches using the following clause instead of <code>text_col LIKE expr</code>.
+            <pre><code>MATCH text_col AGAINST (expr [mode])</code></pre>
+            Here <code>mode</code> can be one of the two following.
+            <ul>
+                <li><code>IN NATURAL LANGUAGE MODE</code>: <a
+                        href="https://dev.mysql.com/doc/internals/en/full-text-search.html">uses tf-idf</a> to search
+                    a corpus.
+                </li>
+                <li><code>IN BOOLEAN MODE</code>: define terms to be included, excluded, and other combinations.</li>
+            </ul>
+            The five full-text searches above can be then written as follows.
+            <pre><code>MATCH(text_col) AGAINST ("cat" IN BOOLEAN MODE)        # 1.</code></pre>
+            <pre><code>MATCH(text_col) AGAINST ("cat dog" IN BOOLEAN MODE)    # 2.</code></pre>
+            <pre><code>MATCH(text_col) AGAINST ("+cat +dog" IN BOOLEAN MODE)  # 3. </code></pre>
+            <pre><code>MATCH(text_col) AGAINST ("-cat +dog" IN BOOLEAN MODE)  # 4. </code></pre>
+            <pre><code>MATCH(text_col) AGAINST ("cat*" IN BOOLEAN MODE)       # 5. </code></pre>
+
+            In terms of implementation, for <code>FULLTEXT INDEX</code> MySQL uses an <a
+                href="https://en.wikipedia.org/wiki/Inverted_index#:~:text=In%20computer%20science%2C%20an%20inverted,maps%20from%20documents%20to%20content).">
+            <strong>inverted index</strong> </a>. Inverted indexes store a list of words, and for each word, the list of
+            documents
+            where
+            that word appears. To support proximity search, position information for each word is also stored, as a
+            byte offset.
+            </p>
+            <h1>Clustered vs Non-Clustered indexes <a
+                    class="headerlink" href="#he5" id="he5" title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                A <strong>clustered index</strong> is an index where the elements are sorted in the same way that
+                they are physically stored in the table. A <strong>non-clustered index</strong> has a structure
+                separate from the data rows and uses pointers to link
+                sorted entries in the index data structure to their actual position in the table, which might not be
+                the same that the entry has in the index.
+            </p>
+            <p>
+                Clearly, clustered indexes allow to skip one level of indirection (the lookup from the index data
+                structure to the actual table). Therefore, accessing rows by a clustered index is extremely fast
+                because the index search leads directly to the page with all the row data.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/idxcluster.jpg" width="70%" alt="Clustered and Non-Clustered Indexes.">
+            </div>
+            <p>
+                However, by construction, no more than one clustered index can exist for a table. Otherwise the table
+                would need to be physically sorted at the same time by different columns.
+            </p>
+            <p>
+                InnoDB stores directly all the fields of each record into the clustered index. This makes the accesses
+                to any of the fields of table particularly efficient whenever we query columns covered by the
+                clustered index.
+            </p>
+            <p>
+                Moreover, InnoDB guarantees that each table has a clustered index. The following criterion is used,
+                in order of priority.
+            <ol>
+                <li>If there is a PRIMARY KEY, that is chosen as the clustered index.</li>
+                <li>If there is a <code>UNIQUE INDEX</code> and all its cols are <code>NOT NULL</code>, the first such
+                    index
+                    is clustered.
+                </li>
+                <li>Otherwise, InnoDB creates a hidden <code>GEN_CLUST_INDEX</code> clustered index that increases
+                    monotonically as new rows are inserted, so order is same as insertion into the table.
+                </li>
+            </ol>
+            In InnoDB, all other indexes are called <strong>secondary indexes</strong>, and contain the primary key as
+            well to
+            link back to the clustered index where data is stored.
+            </p>
+
+            <h1>Conclusions <a
+                    class="headerlink" href="#he6" id="he6" title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+            <ul>
+                <li>Indexes are the are the best way to improve the runtime of <code>SELECT</code> operations.</li>
+                <li>Indexes use data structures such as B-trees to reduce the cost of queries from O(n) to O(log n), and
+                    sometimes evn to O(1).
+                </li>
+                <li>Indexes have drawbacks: slower <code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>, disk
+                    space, ...
+                </li>
+                <li>In many cases creating an index after the data is inserted is more efficient.</li>
+                <li>A multiple-column index can be useful, especially if for a query it is a covering index.</li>
+                <li>Columns involved in the WHERE must be the first Q columns of the index, so column order matters.
+                </li>
+                <li>For full-text searches, we should use <code>FULLTEXT INDEX</code>, and query using <code>MATCH
+                    ...
+                    AGAINST</code> instead of <code>LIKE</code>.
+                </li>
+                <li>In a clustered index, elements are sorted as they are
+                    stored in the table.
+                </li>
+                <li>Accessing rows by a clustered index is extremely fast.</li>
+            </ul>
+            </p>
+        </div>
+
+
+    </div>
+</div>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://www.linkedin.com/in/francescocasalegno/">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/FrancescoCasalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://medium.com/@francesco.casalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-medium-m fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <p class="copyright text-muted">Copyright &copy; Francesco Casalegno 2020</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+<!-- Custom scripts for this template -->
+
+</body>
+</html>
