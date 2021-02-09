@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--  Favicon  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
+    <link rel="manifest" href="../favicons/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicons/favicon.ico">
+
+    <!-- Meta Info -->
+    <title>Francesco Casalegno - Personal Website</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Francesco Casalegno's personal website">
+    <meta name="keywords" content="personal website, blog, data science, machine learning">
+    <meta name="author" content="Francesco Casalegno">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="Graph Convolutional Networks — Deep Learning on Graphs">
+    <meta property="og:description"
+          content="Graph applications are ubiquitous, learn how Deep Learning can impact them!">
+    <meta property="og:image" content="https://francescocasalegno.github.io/images/home-bg.jpg">
+    <meta property="og:url" content="http://francescocasalegno.github.io/blog/post_gccn.html">
+    <meta property="og:site_name" content="Francesco Casalegno's personal website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/0bff17aed7.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/darcula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"
+            integrity="sha512-5IwlvN3ATowZMxsKB/BwpqzQuUA/6PBVTrf/6cZ452Sl7TGWqqd0I0r8M9SHmF5C6hh0gCOLRSyDwQEeyEQ3Dw=="
+            crossorigin="anonymous"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">Francesco Casalegno</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-currentpage" href="../blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../resume.html">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Graph Convolutional Networks</h1>
+                    <h2>Deep Learning on Graphs</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h1>Why graphs? <a class="headerlink" id="he1" href="#he1"
+                               title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">Graphs</a>
+                are among the most versatile data structures, thanks to their great expressive power. In a
+                variety of areas, Machine Learning models have been successfully used to extract and predict
+                information on data lying on graphs, to model complex elements and their relations.
+                Here are just some examples.
+
+            </p>
+            <ul>
+                <li><a href="https://arxiv.org/abs/1802.07007">Traffic patterns forecasting on road networks</a></li>
+                <li><a href="https://arxiv.org/abs/1706.05674">Inferring missing information in a Knowledge
+                    Graph</a></li>
+                <li><a
+                        href="https://papers.nips.cc/paper/2017/file/f507783927f2ec2737ba40afbd17efb5-Paper.pdf">Predicting
+                    protein interactions for drug discovery
+                </a></li>
+                <li><a href="https://arxiv.org/abs/1902.07243">Recommender systems based on social networks data</a>
+                </li>
+            </ul>
+            <p>
+                <img src="../images/graph_examples.png" width="100%" alt="Applications of Machine Learnging on graphs.">
+            </p>
+            <p>
+                More generally, quite a few different Machine Learning tasks can be addressed when working on graphs.
+            <ul>
+                <li><a href="https://paperswithcode.com/task/graph-classification">Graph Classification</a> — given a
+                    graph, predict to which of a set of classes it belongs
+                </li>
+                <li><a href="https://paperswithcode.com/task/node-classification">Node Classification</a> — given a
+                    graph with incomplete node labelling, predict the class of the remaining nodes
+                </li>
+                <li><a href="https://paperswithcode.com/task/link-prediction">Link Prediction</a> — given a graph with
+                    incomplete adjacency matrix, predict for each pair of nodes whether they are connected
+                </li>
+                <li><a href="https://paperswithcode.com/task/community-detection">Community Detection (a.k.a. Graph
+                    Clustering)</a> — given a graph, partition its nodes into clusters based on its edge structure
+                </li>
+                <li><a href="https://paperswithcode.com/task/graph-embedding">Graph Embedding</a> — given a graph, map
+                    it into a vector while preserving relevant information
+                </li>
+                <li><a href="https://paperswithcode.com/task/graph-generation">Graph Generation</a> — learn a
+                    distribution
+                    a set of given graphs, and sample from this distribution to generate new similar graphs
+                </li>
+            </ul>
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/graph_tasks.png" width="80%" alt="ML tasks on graphs.">
+            </div>
+            <p>
+                Unfortunately, graph data are non-structured and non-Euclidean, so building Machine Learning models
+                to solve these tasks is not immediately evident.
+                One the one hand the connections between nodes carry essential information, on the other hand it is
+                not trivial to find a way to process this kind of information.
+            </p>
+            <p>
+                In this post we will see how the problem can be solved using Graph Convolutional Networks (GCN), which
+                generalize classical Convolutional Neural Networks (CNN) to the case of graph-structured
+                data. The main sources for this post are the works of <a href="https://arxiv.org/abs/1609.02907">Kipf et
+                al. 2016</a>,
+                <a href="https://arxiv.org/abs/1606.09375">Defferrard et al. 2016</a>, and <a
+                    href="https://arxiv.org/abs/0912.3848">Hammond et al.
+                2009</a>.
+            </p>
+            <h1>Why convolutions? <a class="headerlink" id="he2" href="#he2"
+                                     title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                Convolutional neural networks (CNNs) have proven incredibly efficient at extracting complex features,
+                and convolutional layers nowadays represent the backbone of many Deep Learning models. CNNs have been
+                successful
+                with data of any dimensionality:
+            </p>
+            <ul>
+                <li>in 1D, to process audio signals — e.g. <a href="https://ieeexplore.ieee.org/document/8605515">for
+                    sound
+                    classification</a>
+                </li>
+                <li>in 2D, to process images — e.g. <a
+                        href="https://journals.sagepub.com/doi/full/10.1177/0022034519871884">
+                    for early caries detection</a>
+                </li>
+                <li>in
+                    3D, to process scans — e.g.
+                    <a href="https://arxiv.org/abs/1809.05231"> for MRI brain
+                        registration</a></li>
+            </ul>
+            <p>
+                What makes CNNs so effective is their ability to learn a sequence of filters to extract more and more
+                complex patterns. In particular, these convolutional filters are characterized by their compact support,
+                and by the property of being translation-invariant.
+            </p>
+            <p>
+                With a little inventiveness, we can apply these same ideas on graph data. What
+                makes the problem harder than when dealing with Euclidean data (1D, 2D, or 3D ) is that translation on
+                irregular graphs is a meaningless concept, so that we need to find another way to define graph
+                convolution.
+            </p>
+            <h1>Defining graph convolution <a class="headerlink" id="he3" href="#he3"
+                                              title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                On Euclidean domains, convolution is defined by taking the product
+                of translated functions. But, as we said, translation is undefined on irregular graphs, so we need to
+                look at this concepts from a different perspective.
+            </p>
+            <p>
+                The key idea is to use a Fourier transform. In the frequency domain, thanks to the <a
+                    href="https://en.wikipedia.org/wiki/Convolution_theorem">Convolution Theorem</a>, the (undefined)
+                convolution
+
+                of two signals
+                becomes the (well-defined) component-wise product of their transforms. So, if knew how to
+                compute the Fourier
+                transform of a function defined on a graph, we could define convolution as
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/gcnn_eq_conv.png" width="40%" alt="Convolution theorem.">
+            </div>
+            <p>
+                This leads us to the next question: how do we define a graph Fourier transform?
+            </p>
+            <p>
+                We will find a solution to this problem by working in analogy with the classical Fourier transform.
+                Let's take
+                the
+                case of a function defined on the real line. Its Fourier transform is its decomposition in frequency
+                terms,
+                obtained by projecting the function on an orthonormal basis of sinusoidal waves. And in fact, these
+                waves
+                are precisely the eigenfunctions of the Laplacian:
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/gcnn_eq_def_1d.png" width="90%" alt="Fourier transform.">
+            </div>
+            <p>
+                So if we generalize this idea, we can define the Fourier transform of a function as its
+                projection on an orthonormal basis of eigenfunctions of the Laplacian:
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/gcnn_eq_def_gen.png" width="90%" alt="Generalized Fourier transform.">
+            </div>
+            <p>
+                In graph theory, the <a href="https://en.wikipedia.org/wiki/Laplacian_matrix">Laplacian matrix</a> is
+                defined as <strong>L = D-A</strong>, where
+            <ul>
+                <li><strong>D</strong>, the <a href="https://en.wikipedia.org/wiki/Degree_matrix">degree matrix</a>, is
+                    the
+                    diagonal
+                    matrix containing the number of edges attached to each vertex;
+                </li>
+                <li><strong>A</strong>, the <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency
+                    matrix</a>,
+                    indicates for each pairs of vertices whether they are connected by an edge.
+                </li>
+            </ul>
+            If we assume that the edges in the graph are indirected (but the definition can be generalized), then
+            the Laplacian <strong>L</strong> is a real symmetric positive semi-definite matrix. So there exists an
+            orthonormal
+            matrix <strong>U</strong> that diagonalizes it, and the graph Fourier transform of a graph signal,
+            represented
+            by the <strong>N</strong>-dimensional vector of values at each of the <strong>N</strong> vertices, can
+            be defined as its projection on such basis:
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/gcnn_eq_def_graph.png" width="90%" alt="Graph Fourier transform.">
+            </div>
+            <p>
+                Since a picture is worth a thousand words, let's see
+                what all this means with concrete examples. If we take the graph corresponding to the
+                <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delauney triangulation</a> of a
+                regular 2D grid, we see that the Fourier basis of the graph correspond exactly to the vibration modes
+                of a free square membrane. This makes sense, as the basic modes of a vibrating plate are precisely the
+                eigenfunctions of the Laplacian.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/graph_eigenmodes_square.png" width="100%" alt="Eigenmodes of a square.">
+            </div>
+            <p>
+                If we take a randomly generated graph, we can still (in some sense!) see the vibration modes
+                of the graph by looking at its orthonormal Fourier basis.
+            </p>
+
+            <div style="text-align: center;">
+                <img src="../images/graph_eigenmodes_rand.png" width="100%" alt="Eigenmodes of a square.">
+            </div>
+            <p>
+                Now that we know how to define a graph Fourier transform, and therefore also how to define graphs
+                convolution, we are ready to understand the architecture of a Graph Convolutional Network!
+            </p>
+
+            <h1>Building the full neural network <a class="headerlink" id="he4" href="#he4"
+                                                    title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                The architecture of all Convolutional Networks for image recognition tends to use the same
+                structure.
+                This is true for simple networks like <a
+                    href="https://arxiv.org/abs/1409.1556">VGG16</a>, but also for complex ones like <a
+                    href="https://arxiv.org/abs/1512.03385">ResNet</a>.
+            </p>
+            <ol>
+                <li>Features are extracted by passing the <strong>HxWxC</strong>
+                    input image through a series of localized convolution filters and pooling
+                    layers.
+                </li>
+                <li>The resulting feature channels are mapped into a fixed-size vector
+                    using e.g. a <a href="https://paperswithcode.com/method/global-average-pooling">global pooling
+                        layer</a>.
+                </li>
+                <li>Finally, a few fully-connected layers are used to produce the final classification output.</li>
+            </ol>
+            <p>
+                The architecture of Graph Convolution Networks follows exactly the same structure!
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/gcnn_ex_2.png" width="100%" alt="GCN architecture.">
+            </div>
+            <p>
+                In the case of a GCN, our input is represented by the following elements:
+            </p>
+            <ul>
+                <li>the <strong>NxC</strong> vector <strong>x</strong> containing, for each
+                    of the <strong>N</strong> nodes of the graphs, <strong>C</strong> features
+                </li>
+                <li>
+                    the <strong>NxN</strong> adjacency matrix
+                </li>
+            </ul>
+            <p>
+                In order to fully understand the architecture shown above, we still need to clarify two last
+                concepts: how to define pooling layers and how to guarantee that convolutions filter have compact
+                support.
+            </p>
+            <p>
+                Concerning pooling layers, we can choose any graph clustering algorithm
+                that merges sets of nodes together while preserving local geometric structures.
+                Given that optimal graph clustering is a NP-hard problem, a fast greedy approximation is used in
+                practice.
+                A popular choice is the <a href="https://pubmed.ncbi.nlm.nih.gov/17848776/">Graclus</a>  multilevel
+                clustering algorithm.
+            </p>
+            <p>
+                Concerning the compact support of the convolutional filters, how we guarantee that the
+                convolutional layers of our GCN operate locally? In general, an input <strong>x</strong>
+                is filtered by <strong>g</strong> as
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/gcnn_eq_filter.png" width="40%" alt="Graph signal filtering.">
+            </div>
+            <p>
+                However, without further assumptions, such a filter does not have a compact support, and moreover
+                learning all
+                the
+                components of <strong>ĝ(Λ)</strong> has <strong>O(N)</strong> complexity. To fix both issues, we will
+                use
+                instead a polynomial parametrization of <strong>ĝ</strong> of degree <strong>K</strong>:
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/gcnn_eq_poly.png" width="40%" alt="Polynomial signal filtering.">
+            </div>
+            <p>
+                This reduces the learning complexity to <strong>O(K)</strong>, as we just need to learn
+                <strong>θ<sub>0</sub>, ..., θ<sub>K-1</sub></strong>. And on top of that, it
+                can be shown that
+                <strong>ĝ</strong> is <strong>K</strong>-localized, i.e. the value at node <strong>j</strong> of
+                <strong>
+                    ĝ</strong> centered at node <strong>i</strong> is <strong>0</strong> if the the minimum number of
+                edges
+                connecting two nodes on the graph is greater than <strong>K</strong>. Typically, <strong>K=1</strong> is
+                often used, which corresponds to <strong>3x3</strong> convolutional filters on images:
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/graph_local_filter.png" width="50%" alt="Localized signal filtering.">
+            </div>
+            <p>
+                A final observation on computational optimization. The cost of computing the filtered signal
+                <strong>ĝ(L)x</strong>
+                is still as high as <strong>O(N<sup>2</sup>)</strong>, because of the multiplication involving <strong>U</strong>.
+                But this
+                cost can be reduced to <strong>O(EK)</strong> (where <strong>E</strong> is the number of edges) by
+                expressing the polynomial
+                in terms of <a
+                    href="https://en.wikipedia.org/wiki/Chebyshev_polynomials">Chebyshev polynomials</a>, which have a
+                very convenient recursive formulation.
+            </p>
+            <h1>Conclusions <a class="headerlink" id="he5" href="#he5"
+                               title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <ul>
+                <li>
+                    From knowledge graphs to social networks, graph applications are ubiquitous.
+                </li>
+                <li>
+                    Convolutional Neural
+                    Networks (CNNs) have been successful in many domains,
+                    and can be generalized to Graph Convolutional Networks (GCNs).
+                </li>
+                <li>Convolution on graphs are defined through the graph Fourier transform.</li>
+                <li>The graph Fourier transform, on turn, is defined as the projection on the eigenvalues of the
+                    Laplacian. These are the "vibration modes" of the graph.
+                </li>
+                <li>
+                    As for traditional CNNs, a GCN consists of several convolutional and pooling layers for feature
+                    extraction, followed by the final
+                    fully-connected layers.
+                </li>
+                <li>
+                    To ensure that the convolutional filters have compact support, we use a polynomial parametrization.
+                    Chebyshev polynomials allow to reduce the computational
+                    complexity.
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://www.linkedin.com/in/francescocasalegno/">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/FrancescoCasalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://medium.com/@francesco.casalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-medium-m fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <p class="copyright text-muted">Copyright &copy; Francesco Casalegno 2020</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+<!-- Custom scripts for this template -->
+
+</body>
+</html>
