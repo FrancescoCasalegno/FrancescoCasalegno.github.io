@@ -17,11 +17,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Open Graph Meta -->
-    <meta property="og:title" content="Graph Convolutional Networks — Deep Learning on Graphs">
+    <meta property="og:title" content="A/B Testing — A complete guide to statistical testing">
     <meta property="og:description"
-          content="Graph applications are ubiquitous, learn how Deep Learning can impact them!">
+          content="With the right statistical analysis, A/B tests can tremendously improve business strategies.">
     <meta property="og:image" content="https://francescocasalegno.github.io/images/home-bg.jpg">
-    <meta property="og:url" content="http://francescocasalegno.github.io/blog/post_gccn.html">
+    <meta property="og:url" content="http://francescocasalegno.github.io/blog/post_abtesting.html">
     <meta property="og:site_name" content="Francesco Casalegno's personal website">
     <meta name="twitter:card" content="summary_large_image">
 
@@ -83,8 +83,8 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1>Graph Convolutional Networks</h1>
-                    <h2>Deep Learning on Graphs</h2>
+                    <h1>A/B Testing</h1>
+                    <h2>A complete guide to statistical testing</h2>
                 </div>
             </div>
         </div>
@@ -95,323 +95,433 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <h1>Why graphs? <a class="headerlink" id="he1" href="#he1"
-                               title="Permalink to this headline"><i
+            <h1>What is A/B testing? <a class="headerlink" id="he1" href="#he1"
+                                        title="Permalink to this headline"><i
                     class="fas fa-link"></i></a></h1>
             <p>
-                <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">Graphs</a>
-                are among the most versatile data structures, thanks to their great expressive power. In a
-                variety of areas, Machine Learning models have been successfully used to extract and predict
-                information on data lying on graphs, to model complex elements and their relations.
-                Here are just some examples.
-
-            </p>
-            <ul>
-                <li><a href="https://arxiv.org/abs/1802.07007">Traffic patterns forecasting on road networks</a></li>
-                <li><a href="https://arxiv.org/abs/1706.05674">Inferring missing information in a Knowledge
-                    Graph</a></li>
-                <li><a
-                        href="https://papers.nips.cc/paper/2017/file/f507783927f2ec2737ba40afbd17efb5-Paper.pdf">Predicting
-                    protein interactions for drug discovery
-                </a></li>
-                <li><a href="https://arxiv.org/abs/1902.07243">Recommender systems based on social networks data</a>
-                </li>
-            </ul>
-            <p>
-                <img src="../images/graph_examples.png" width="100%" alt="Applications of Machine Learnging on graphs.">
+                <strong>A/B testing</strong>
+                is one of the most popular kind of controlled experiment performed
+                by companies to help designing their web marketing strategies.
+                It allows decision makers to choose the design for a website by looking
+                at the analytics results obtained with two possible designs A and B.
             </p>
             <p>
-                More generally, quite a few different Machine Learning tasks can be addressed when working on graphs.
+                More precisely, A/B testing consists in creating two alternative
+                designs A and B of the same website, and then randomly serving
+                visitors with either A or B.
+                We can assume that A is the original (control) design while B
+                is a propose variation.
+                Then, by looking at web analytics,
+                we want to apply statistical methods to determine whether
+                one of the two designs improves the efficacy of the webpage.
+            </p>
+            <p>
+                Different kinds of metrics can be used to measure a website efficacy.
+                First, we have <strong>binomial (or discrete) metrics</strong>,
+                where only the two values 0 and 1 (or False and True) are possible.
+            </p>
             <ul>
-                <li><a href="https://paperswithcode.com/task/graph-classification">Graph Classification</a> — given a
-                    graph, predict to which of a set of classes it belongs
+                <li><a href="https://en.wikipedia.org/wiki/Click-through_rate">Click-through rate</a> — if a
+                    user is shown an advertisement, do they click on it?
                 </li>
-                <li><a href="https://paperswithcode.com/task/node-classification">Node Classification</a> — given a
-                    graph with incomplete node labelling, predict the class of the remaining nodes
+                <li><a href="https://en.wikipedia.org/wiki/Conversion_rate_optimization">Conversion rate</a> — if a
+                    user is shown an advertisement, do they convert into customers?
                 </li>
-                <li><a href="https://paperswithcode.com/task/link-prediction">Link Prediction</a> — given a graph with
-                    incomplete adjacency matrix, predict for each pair of nodes whether they are connected
-                </li>
-                <li><a href="https://paperswithcode.com/task/community-detection">Community Detection (a.k.a. Graph
-                    Clustering)</a> — given a graph, partition its nodes into clusters based on its edge structure
-                </li>
-                <li><a href="https://paperswithcode.com/task/graph-embedding">Graph Embedding</a> — given a graph, map
-                    it into a vector while preserving relevant information
-                </li>
-                <li><a href="https://paperswithcode.com/task/graph-generation">Graph Generation</a> — learn a
-                    distribution
-                    a set of given graphs, and sample from this distribution to generate new similar graphs
+                <li><a href="https://en.wikipedia.org/wiki/Bounce_rate">Bounce rate</a> — if a
+                    user is visits a website, is the next webpage they visit on the same website?
                 </li>
             </ul>
-            </p>
             <div style="text-align: center;">
-                <img src="../images/graph_tasks.png" width="80%" alt="ML tasks on graphs.">
+                <img src="../images/abtesting/ab_discrete.png" width="100%" alt="Discrete metrics: click-through rate.">
+            </div>
+            </p>
+            Second, we have <strong>non-binomial (or continuous) metrics</strong>,
+            where the possible values may take continuous values are not
+            limited to two discrete states.
+            </p>
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Average_revenue_per_user">Average revenue per user</a> —
+                    how much revenue does a user generate in a month?
+                </li>
+                <li><a href="https://en.wikipedia.org/wiki/Session_(web_analytics)">Average session duration</a> —
+                    for how long does a user spend on a website in a session?
+                </li>
+                <li><a href="https://www.optimizely.com/optimization-glossary/average-order-value/">Average order
+                    value</a> — what is the total value of the order of a user?
+                </li>
+            </ul>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/ab_continuous.png" width="100%"
+                     alt="Continuous metrics: average order value.">
             </div>
             <p>
-                Unfortunately, graph data are non-structured and non-Euclidean, so building Machine Learning models
-                to solve these tasks is not immediately evident.
-                One the one hand the connections between nodes carry essential information, on the other hand it is
-                not trivial to find a way to process this kind of information.
+
+            </p>
+            <h1>Statistical significance <a class="headerlink" id="he2" href="#he2"
+                                            title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h1>
+            <p>
+                Once we have collected some data from the activity of the users
+                of our website, we can start comparing the efficacy of the two
+                designs A and B.
+                A simple comparison of the mean values obtained for the two samples
+                is not very meaningful, as what we have to compute is also the
+                <strong>statistical significance</strong>, i.e. determine how
+                likely it is that the observed discrepancy between the two samples
+                originates from chance.
             </p>
             <p>
-                In this post we will see how the problem can be solved using Graph Convolutional Networks (GCN), which
-                generalize classical Convolutional Neural Networks (CNN) to the case of graph-structured
-                data. The main sources for this post are the works of <a href="https://arxiv.org/abs/1609.02907">Kipf et
-                al. 2016</a>,
-                <a href="https://arxiv.org/abs/1606.09375">Defferrard et al. 2016</a>, and <a
-                    href="https://arxiv.org/abs/0912.3848">Hammond et al.
-                2009</a>.
+                The <strong>null hypothesis H<sub>0</sub></strong> of our test is
+                that the two designs A and B have the same efficacy, i.e. that they
+                produce an equivalent click-through rate, or average revenue per user, etc.
+                The statistical significance is then measured by the <strong>p-value</strong>,
+                i.e. the probability of observing a discrepancy between our samples
+                at least as strong as the one that we actually observed.
             </p>
-            <h1>Why convolutions? <a class="headerlink" id="he2" href="#he2"
-                                     title="Permalink to this headline"><i
-                    class="fas fa-link"></i></a></h1>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/p_val.png" width="100%"
+                     alt="P-value.">
+            </div>
             <p>
-                Convolutional neural networks (CNNs) have proven incredibly efficient at extracting complex features,
-                and convolutional layers nowadays represent the backbone of many Deep Learning models. CNNs have been
-                successful
-                with data of any dimensionality:
+                Now, some care has to be applied to properly choose
+                the <strong>alternative hypothesis H<sub>a</sub></strong>. This
+                choice corresponds to choosing between
+                <a href="https://en.wikipedia.org/wiki/One-_and_two-tailed_tests">
+                    one- and two- tailed tests
+                </a>.
+            </p>
+            <p>
+                A <strong>two-tailed test</strong> is preferable in our case, since
+                we have no reason to know a priori whether the discrepancy between
+                the results of A and B will be in favor of A or B. For this reason,
+                we will have to compute the p-value as the area under the the two tails of
+                the probability density function <strong>p(x)</strong> of a chosen test statistic on all
+                <strong>x'</strong> s.t. <strong>p(x') <= p(our observation)</strong>.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/tails.png" width="100%"
+                     alt="One- and two- tailed tests.">
+            </div>
+            <p>
+                For A/B testing it is best to define <strong>H<sub>a</sub></strong>
+                as the hypothesis that A and B have different efficacy, as we have
+                no reason to make a priori assumptions on design A being better than B
+                or vice versa.
+            </p>
+            <p>
+                The computation of the p-value depends on the distribution of our
+                data. So we will see first how to compute the significance of an A/B test
+                with discrete data, and then how to do that if data are continuous.
+            </p>
+            <h1>Discrete metrics <a class="headerlink" id="he3" href="#he3"
+                                    title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h1>
+            <p>
+                Let's consider first discrete metrics, e.g. click-though rate. We
+                randomly show visitors one of two possible designs of
+                an advertisement, and based on how many of them click on it we
+                need to determine whether our data significantly contradict the
+                hypothesis that the two designs are equivalently efficient.
+            </p>
+            <p>
+                In the following example, let's say that the actual observations were the following:
+                15 visitors saw the advertisement A and 7 of them clicked on it, while
+                19 visitors saw the advertisement B and 15 of them clicked on it. At a first sight,
+                it looks like version B was more effective, but how statistically significant is this
+                discrepancy?
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/fisher_cont_tables_1.png" width="70%"
+                     alt="Click-through ratios: contingency table.">
+            </div>
+            <p></p>
+            <h2>Fisher's exact test <a class="headerlink" id="he3_1" href="#he3_1"
+                                       title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h2>
+            <p>
+                Since we have a 2x2 <a
+                    href="https://en.wikipedia.org/wiki/Contingency_table">contingency table
+            </a> we can use <a href="https://en.wikipedia.org/wiki/Fisher%27s_exact_test">
+                Fisher's exact test</a> to compute an exact p-value and test our hypothesis.
+                To understand how this test works, let us start by noticing that
+                if we fix the margins of the tables (i.e. the four sums of each row and column),
+                then only few different outcomes are possible.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/fisher_cont_tables_2.png" width="70%"
+                     alt="Click-through ratios: possible outcomes">
+            </div>
+            <p>
+                Now, the key observation is that the probability of each of these
+                possible outcomes is given by the <a
+                    href="https://en.wikipedia.org/wiki/Hypergeometric_distribution">hypergeometric
+                distribution
+            </a>.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/hypergeom.png" width="100%"
+                     alt="Click-through ratios: hypergeometric distribution">
+            </div>
+            <p>
+                By using this formula we can compute that, if A and B had equivalent efficacy, then
             </p>
             <ul>
-                <li>in 1D, to process audio signals — e.g. <a href="https://ieeexplore.ieee.org/document/8605515">for
-                    sound
-                    classification</a>
+                <li>the probability of seeing our actual observations is ~4.5%</li>
+                <li>the probability of seeing even more unlikely observations in favor if B is
+                    ~1% (left tail)
                 </li>
-                <li>in 2D, to process images — e.g. <a
-                        href="https://journals.sagepub.com/doi/full/10.1177/0022034519871884">
-                    for early caries detection</a>
+                <li>the probability of seeing observations even more unlikely observations in favor if A
+                    is ~2% (right tail)
                 </li>
-                <li>in
-                    3D, to process scans — e.g.
-                    <a href="https://arxiv.org/abs/1809.05231"> for MRI brain
-                        registration</a></li>
             </ul>
-            <p>
-                What makes CNNs so effective is their ability to learn a sequence of filters to extract more and more
-                complex patterns. In particular, these convolutional filters are characterized by their compact support,
-                and by the property of being translation-invariant.
-            </p>
-            <p>
-                With a little inventiveness, we can apply these same ideas on graph data. What
-                makes the problem harder than when dealing with Euclidean data (1D, 2D, or 3D ) is that translation on
-                irregular graphs is a meaningless concept, so that we need to find another way to define graph
-                convolution.
-            </p>
-            <h1>Defining graph convolution <a class="headerlink" id="he3" href="#he3"
+            <p>So, using Fisher's exact test, we obtain p-value of ~7.5%.</p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/fisher_hypergeom_distr.png" width="60%"
+                     alt="Click-through ratios: tails and p-value">
+            </div>
+            <p></p>
+            <h2>Pearson's chi-squared test <a class="headerlink" id="he3_2" href="#he3_2"
                                               title="Permalink to this headline"><i
-                    class="fas fa-link"></i></a></h1>
+                    class="fas fa-link"></i></a>
+            </h2>
             <p>
-                On Euclidean domains, convolution is defined by taking the product
-                of translated functions. But, as we said, translation is undefined on irregular graphs, so we need to
-                look at this concepts from a different perspective.
+                Fisher's exact test has the important advantage of computing exact p-values.
+                But if we have a large sample size, it may be computationally
+                inefficient. In this case, we can use
+                <a href="https://en.wikipedia.org/wiki/Pearson%27s_chi-square_test">
+                    Pearson's chi-squared test</a> to compute an approximate p-value.
             </p>
             <p>
-                The key idea is to use a Fourier transform. In the frequency domain, thanks to the <a
-                    href="https://en.wikipedia.org/wiki/Convolution_theorem">Convolution Theorem</a>, the (undefined)
-                convolution
+                Let us call <strong>O<sub>ij</sub></strong> the observed value of
+                the contingency table at row <strong>i</strong> and column <strong>j</strong>.
+                Under the null hypothesis of independence of rows and columns, i.e.
+                assuming that seeing the design version A or B has no impact on the
+                likelihood of clicking on it,
+                we can easily compute corresponding expected values <strong>E<sub>ij</sub></strong>.
+                Moreover, if the observations are normally distributed, then the χ<sup>2</sup>
+                statistic follows exactly a <a href="https://en.wikipedia.org/wiki/Chi-square_distribution">
+                chi-square distribution
+            </a> with 1 degree of freedom.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/chisq.png" width="100%"
+                     alt="Click-through ratios: tails and p-value">
+            </div>
+            <p></p>
+            <p>
+                In fact, the test can also be used with non-normal observations, if the
+                sample size is large enough (thanks to the <a
+                    href="https://en.wikipedia.org/wiki/Central_limit_theorem">central limit theorem</a>).
 
-                of two signals
-                becomes the (well-defined) component-wise product of their transforms. So, if knew how to
-                compute the Fourier
-                transform of a function defined on a graph, we could define convolution as
+                But in our example the sample size is relatively small and
+                the p-value of Pearson's chi-square is ~5.1%, which is quite
+                different from the one we computed before with Fisher's exact
+                test.
             </p>
-            <div style="text-align: center;">
-                <img src="../images/gcnn_eq_conv.png" width="40%" alt="Convolution theorem.">
-            </div>
+            <h1>Continuous metrics <a class="headerlink" id="he4" href="#he4"
+                                      title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h1>
             <p>
-                This leads us to the next question: how do we define a graph Fourier transform?
+                Let's now consider the case of a continuous metrics, e.g. average revenue per user. We
+                randomly show visitors of our website one of two possible layouts of products for sale,
+                and based on how much revenue each user generated in a month we
+                want to determine whether our data significantly contradict the
+                hypothesis that the two website layouts are equivalently efficient.
             </p>
             <p>
-                We will find a solution to this problem by working in analogy with the classical Fourier transform.
-                Let's take
-                the
-                case of a function defined on the real line. Its Fourier transform is its decomposition in frequency
-                terms,
-                obtained by projecting the function on an orthonormal basis of sinusoidal waves. And in fact, these
-                waves
-                are precisely the eigenfunctions of the Laplacian:
-            </p>
-            <div style="text-align: center;">
-                <img src="../images/gcnn_eq_def_1d.png" width="90%" alt="Fourier transform.">
-            </div>
-            <p>
-                So if we generalize this idea, we can define the Fourier transform of a function as its
-                projection on an orthonormal basis of eigenfunctions of the Laplacian:
-            </p>
-            <div style="text-align: center;">
-                <img src="../images/gcnn_eq_def_gen.png" width="90%" alt="Generalized Fourier transform.">
-            </div>
-            <p>
-                In graph theory, the <a href="https://en.wikipedia.org/wiki/Laplacian_matrix">Laplacian matrix</a> is
-                defined as <strong>L = D-A</strong>, where
-            <ul>
-                <li><strong>D</strong>, the <a href="https://en.wikipedia.org/wiki/Degree_matrix">degree matrix</a>, is
-                    the
-                    diagonal
-                    matrix containing the number of edges attached to each vertex;
-                </li>
-                <li><strong>A</strong>, the <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency
-                    matrix</a>,
-                    indicates for each pairs of vertices whether they are connected by an edge.
-                </li>
-            </ul>
-            If we assume that the edges in the graph are indirected (but the definition can be generalized), then
-            the Laplacian <strong>L</strong> is a real symmetric positive semi-definite matrix. So there exists an
-            orthonormal
-            matrix <strong>U</strong> that diagonalizes it, and the graph Fourier transform of a graph signal,
-            represented
-            by the <strong>N</strong>-dimensional vector of values at each of the <strong>N</strong> vertices, can
-            be defined as its projection on such basis:
-            </p>
-            <div style="text-align: center;">
-                <img src="../images/gcnn_eq_def_graph.png" width="90%" alt="Graph Fourier transform.">
-            </div>
-            <p>
-                Since a picture is worth a thousand words, let's see
-                what all this means with concrete examples. If we take the graph corresponding to the
-                <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delauney triangulation</a> of a
-                regular 2D grid, we see that the Fourier basis of the graph correspond exactly to the vibration modes
-                of a free square membrane. This makes sense, as the basic modes of a vibrating plate are precisely the
-                eigenfunctions of the Laplacian.
-            </p>
-            <div style="text-align: center;">
-                <img src="../images/graph_eigenmodes_square.png" width="100%" alt="Eigenmodes of a square.">
-            </div>
-            <p>
-                If we take a randomly generated graph, we can still (in some sense!) see the vibration modes
-                of the graph by looking at its orthonormal Fourier basis.
-            </p>
-
-            <div style="text-align: center;">
-                <img src="../images/graph_eigenmodes_rand.png" width="100%" alt="Eigenmodes of a square.">
-            </div>
-            <p>
-                Now that we know how to define a graph Fourier transform, and therefore also how to define graphs
-                convolution, we are ready to understand the architecture of a Graph Convolutional Network!
-            </p>
-
-            <h1>Building the full neural network <a class="headerlink" id="he4" href="#he4"
-                                                    title="Permalink to this headline"><i
-                    class="fas fa-link"></i></a></h1>
-            <p>
-                The architecture of all Convolutional Networks for image recognition tends to use the same
-                structure.
-                This is true for simple networks like <a
-                    href="https://arxiv.org/abs/1409.1556">VGG16</a>, but also for complex ones like <a
-                    href="https://arxiv.org/abs/1512.03385">ResNet</a>.
-            </p>
-            <ol>
-                <li>Features are extracted by passing the <strong>HxWxC</strong>
-                    input image through a series of localized convolution filters and pooling
-                    layers.
-                </li>
-                <li>The resulting feature channels are mapped into a fixed-size vector
-                    using e.g. a <a href="https://paperswithcode.com/method/global-average-pooling">global pooling
-                        layer</a>.
-                </li>
-                <li>Finally, a few fully-connected layers are used to produce the final classification output.</li>
-            </ol>
-            <p>
-                The architecture of Graph Convolution Networks follows exactly the same structure!
-            </p>
-            <div style="text-align: center;">
-                <img src="../images/gcnn_ex_2.png" width="100%" alt="GCN architecture.">
-            </div>
-            <p>
-                In the case of a GCN, our input is represented by the following elements:
+                To make a concrete example, let's consider the following case.
             </p>
             <ul>
-                <li>the <strong>NxC</strong> vector <strong>x</strong> containing, for each
-                    of the <strong>N</strong> nodes of the graphs, <strong>C</strong> features
-                </li>
-                <li>
-                    the <strong>NxN</strong> adjacency matrix
+                <li> <strong>n<sub>X</sub>=17</strong> users saw the layout A, and then made the following purchases:
+                200$, 150$, 250$, 350$, 150$, 150$, 350$, 250$, 150$, 250$, 150$, 150$, 200$, 0$, 0$, 100$, 50$.
+                We denote the i-th purchase by <strong>X<sub>i</sub></strong>.</li>
+                <li> <strong>n<sub>X</sub>=14</strong> users saw the layout B, and then made the following purchases:
+                300$, 150$, 150$, 400$, 250$, 250$, 150$, 200$, 250$, 150$, 300$, 200$, 250$, 200$.
+                We denote the i-th purchase by <strong>Y<sub>i</sub></strong>.
                 </li>
             </ul>
             <p>
-                In order to fully understand the architecture shown above, we still need to clarify two last
-                concepts: how to define pooling layers and how to guarantee that convolutions filter have compact
-                support.
-            </p>
-            <p>
-                Concerning pooling layers, we can choose any graph clustering algorithm
-                that merges sets of nodes together while preserving local geometric structures.
-                Given that optimal graph clustering is a NP-hard problem, a fast greedy approximation is used in
-                practice.
-                A popular choice is the <a href="https://pubmed.ncbi.nlm.nih.gov/17848776/">Graclus</a>  multilevel
-                clustering algorithm.
-            </p>
-            <p>
-                Concerning the compact support of the convolutional filters, how we guarantee that the
-                convolutional layers of our GCN operate locally? In general, an input <strong>x</strong>
-                is filtered by <strong>g</strong> as
+                If we plot these values, at a first sight,
+                it looks like version B was more effective. But how statistically significant is this
+                discrepancy?
             </p>
             <div style="text-align: center;">
-                <img src="../images/gcnn_eq_filter.png" width="40%" alt="Graph signal filtering.">
+                <img src="../images/abtesting/cont_sample.png" width="60%"
+                     alt="Average revenue per user: samples distribution">
             </div>
+            <p></p>
+            <h2>Z-test <a class="headerlink" id="he4_1" href="#he4_1"
+                          title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h2>
             <p>
-                However, without further assumptions, such a filter does not have a compact support, and moreover
-                learning all
-                the
-                components of <strong>ĝ(Λ)</strong> has <strong>O(N)</strong> complexity. To fix both issues, we will
-                use
-                instead a polynomial parametrization of <strong>ĝ</strong> of degree <strong>K</strong>:
+                The <a href="https://en.wikipedia.org/wiki/Z-test">Z-test</a> can be applied
+                under the following assumptions.
             </p>
-            <div style="text-align: center;">
-                <img src="../images/gcnn_eq_poly.png" width="40%" alt="Polynomial signal filtering.">
-            </div>
-            <p>
-                This reduces the learning complexity to <strong>O(K)</strong>, as we just need to learn
-                <strong>θ<sub>0</sub>, ..., θ<sub>K-1</sub></strong>. And on top of that, it
-                can be shown that
-                <strong>ĝ</strong> is <strong>K</strong>-localized, i.e. the value at node <strong>j</strong> of
-                <strong>
-                    ĝ</strong> centered at node <strong>i</strong> is <strong>0</strong> if the the minimum number of
-                edges
-                connecting two nodes on the graph is greater than <strong>K</strong>. Typically, <strong>K=1</strong> is
-                often used, which corresponds to <strong>3x3</strong> convolutional filters on images:
-            </p>
-            <div style="text-align: center;">
-                <img src="../images/graph_local_filter.png" width="50%" alt="Localized signal filtering.">
-            </div>
-            <p>
-                A final observation on computational optimization. The cost of computing the filtered signal
-                <strong>ĝ(L)x</strong>
-                is still as high as <strong>O(N<sup>2</sup>)</strong>, because of the multiplication involving <strong>U</strong>.
-                But this
-                cost can be reduced to <strong>O(EK)</strong> (where <strong>E</strong> is the number of edges) by
-                expressing the polynomial
-                in terms of <a
-                    href="https://en.wikipedia.org/wiki/Chebyshev_polynomials">Chebyshev polynomials</a>, which have a
-                very convenient recursive formulation.
-            </p>
-            <h1>Conclusions <a class="headerlink" id="he5" href="#he5"
-                               title="Permalink to this headline"><i
-                    class="fas fa-link"></i></a></h1>
             <ul>
-                <li>
-                    From knowledge graphs to social networks, graph applications are ubiquitous.
-                </li>
-                <li>
-                    Convolutional Neural
-                    Networks (CNNs) have been successful in many domains,
-                    and can be generalized to Graph Convolutional Networks (GCNs).
-                </li>
-                <li>Convolution on graphs are defined through the graph Fourier transform.</li>
-                <li>The graph Fourier transform, on turn, is defined as the projection on the eigenvalues of the
-                    Laplacian. These are the "vibration modes" of the graph.
-                </li>
-                <li>
-                    As for traditional CNNs, a GCN consists of several convolutional and pooling layers for feature
-                    extraction, followed by the final
-                    fully-connected layers.
-                </li>
-                <li>
-                    To ensure that the convolutional filters have compact support, we use a polynomial parametrization.
-                    Chebyshev polynomials allow to reduce the computational
-                    complexity.
+                <li>The observations are normally distributed (or the sample size is large).</li>
+                <li>The sampling distributions have known variance <strong>σ<sub>X</sub></strong> and
+                <strong>σ<sub>Y</sub></strong>.</li>
+            </ul>
+            <p>
+                Under the above assumptions, the Z-test relies on the observation that
+                the following <strong>Z statistic</strong>  has a standard normal distribution.
+            </p>
+            <p>
+                Unfortunately in most real applications the standard deviations are
+                unknown and must be estimated, so a t-test is preferable, as we will see later.
+                 Anyway, if in our case we are told that
+                <strong>σ<sub>X</sub>=100</strong> and <strong>σ<sub>X</sub>=90</strong>,
+                then we obtain <strong>z=-1.697</strong>, which corresponds to a <strong>p<sub>val</sub>=9%</strong>.
+            </p>
+            <p></p>
+            <h2>Student's t-test <a class="headerlink" id="he4_2" href="#he4_2"
+                                    title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h2>
+            <p>
+                In most cases, the variances of the sampling distributions are unknown,
+                so that we need to estimate them.
+                <a href="https://en.wikipedia.org/wiki/Student%27s_t-test">Student's t-test</a> can
+                then be applied  under the following assumptions.
+            </p>
+            <ul>
+                <li>The observations are normally distributed (or the sample size is large).</li>
+                <li>The sampling distributions have "similar" variances <strong>σ<sub>X</sub></strong> ≈
+                <strong>σ<sub>Y</sub></strong>.</li>
+            </ul>
+            <p>
+                Under the above assumptions, Student's t-test relies on the observation that
+                the following <strong>t statistic</strong>  has a Student's t distribution.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/test_t_stud.png" width="100%"
+                     alt="Student's t-test">
+            </div>
+            <p>
+                Here <strong>S<sub>P</sub></strong> is the <a href="https://en.wikipedia.org/wiki/Pooled_variance">
+                pooled variance
+            </a> obtained from the sample variances <strong>S<sub>X</sub></strong> and <strong>S
+                <sub>Y</sub></strong>, which are computed using the unbiased formula including <a
+                    href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel's correction
+            </a>).
+            </p>
+            <h2>Welch's t-test <a class="headerlink" id="he4_3" href="#he4_3"
+                                  title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h2>
+            <p>
+                In most cases Student's t test can be effectively applied with good results.
+                However, it may rarely happen that its second assumption (similar variance
+                of the sampling distributions) is violated. In that case, we
+                cannot compute a pooled variance and rather than Student's t test
+                we should use <a href="https://en.wikipedia.org/wiki/Welch%27s_t-test">Welch's t-test</a>.
+            </p>
+            <p>
+                This test operates under the same assumptions of Student's t-test
+                but removes the requirement on the similar variances. Then, we
+                can use a slightly different <strong>t statistic</strong>, which
+                also has a Student's t distribution, but with a different number
+                of degrees of freedom <strong>ν</strong>.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/test_t_welch.png" width="100%"
+                     alt="Student's t-test">
+            </div>
+            <p>
+                The complex formula for <strong>ν</strong> comes from
+                <a href="https://en.wikipedia.org/wiki/Welch%E2%80%93Satterthwaite_equation">
+                    Welch–Satterthwaite equation
+                </a>.
+            </p>
+            <h1>Continuous non-normal metrics <a class="headerlink" id="he5" href="#he5"
+                                      title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h1>
+            <p>
+                In the previous section on continuous metrics, we assumed
+                that our observations came from normal distributions. But
+                non-normal distributions are extremely common when dealing with
+                per-user monthly revenues etc. There are several ways in which normality
+                is often violated:
+            </p>
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Zero-inflated_model">
+                zero-inflated distributions
+            </a> — most user don't buy anything at all, so lots of zero observations;</li>
+                <li><a href="https://en.wikipedia.org/wiki/Multimodal_distribution">multimodal distributions</a> —
+                a market segment tends purchases cheap products, while
+                    another segment purchases more expensive products.
                 </li>
             </ul>
-
+            <div style="text-align: center;">
+                <img src="../images/abtesting/non_normal_test_stat_distr.png" width="50%"
+                     alt="Zero-inflated non-normal distribution">
+            </div>
+            <p>
+                However, if we have enough samples, tests derived under normality
+                assumptions like Z-test, Student's t-test, and Welch's t-test can
+                still be applied for observations that signficantly deviate  from
+                normality. Indeed, thanks to the <a
+                    href="https://en.wikipedia.org/wiki/Central_limit_theorem">central limit theorem</a>,
+                the distribution of the test statistics tends
+                to normality as the sample size increases. In the zero-inflated
+                and multimodal example we are considering, even a sample size
+                of 40 produces a fairly normal distribution.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/non_norm_clt.png" width="100%"
+                     alt="Zero-inflated non-normal distribution">
+            </div>
+            <p></p>
+            <p>
+                But if the sample size is still too small to assume normality,
+                we can use an alternative, non-parametric approach such as the
+                Mann-Whitney U test.
+            </p>
+            <h2>Mann–Whitney U test<a class="headerlink" id="he5_1" href="#he5_1"
+                                  title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h2>
+            <p>
+                This test makes the least assumptions about the nature of our observations,
+                as it is fully nonparametric.
+                The idea of <a href="https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test">Mann-Whitney U test</a>
+                is to compute the following <strong>U statistic</strong>.
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/test_u.png" width="100%"
+                     alt="Mann–Whitney U test">
+            </div>
+            <p>
+                The values of this test statistic are tabulated, as the distribution
+                can be computed under the null hypothesis that, for
+                random samples
+                <strong>X</strong> and <strong>Y</strong> from the two populations,
+                the probability <strong>P(X < Y)</strong> is the same as
+                <strong>P(X > Y)</strong>.
+            </p>
+            <h1>Conclusions <a class="headerlink" id="he6" href="#he6"
+                                  title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a>
+            </h1>
+            <p>
+                We have seen that different kinds of metrics and observations
+                require different kinds of statistical tests to measure the
+                significance of the results obtained with A/B testing.
+                The following diagram provides an overview of the methods
+                presented in this article in the form of a decision tree.
+            </p>
+<!--            TODO: add computation of p-vals for all tests!-->
+<!--            TODO: add link to notebook!-->
+            <div style="text-align: center;">
+                <img src="../images/abtesting/summary.png" width="100%"
+                     alt="Summary of the statistical tests to be used for A/B testing">
+            </div>
         </div>
     </div>
 </div>
