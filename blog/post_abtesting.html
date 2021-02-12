@@ -100,25 +100,33 @@
                     class="fas fa-link"></i></a></h1>
             <p>
                 <strong>A/B testing</strong>
-                is one of the most popular kind of controlled experiment performed
-                by companies to help designing their web marketing strategies.
-                It allows decision makers to choose the design for a website by looking
-                at the analytics results obtained with two possible designs A and B.
+                is one of the most popular controlled experiments used to optimize
+                web marketing strategies. It allows decision makers to choose the
+                best design for a website by looking at the analytics results
+                obtained with two possible alternatives A and B.
             </p>
             <p>
-                More precisely, A/B testing consists in creating two alternative
-                designs A and B of the same website, and then randomly serving
-                visitors with either A or B.
-                We can assume that A is the original (control) design while B
-                is a propose variation.
-                Then, by looking at web analytics,
-                we want to apply statistical methods to determine whether
-                one of the two designs improves the efficacy of the webpage.
+                In this article we'll see how different statistical
+                methods can be used to make A/B testing successful.
+                I recommend you to also have a look at
+                <a href="https://github.com/FrancescoCasalegno/AB_Testing/blob/main/AB_Testing.ipynb">
+                    this notebook
+                </a> where you can play with the examples discussed in
+                this article.
             </p>
             <p>
-                Different kinds of metrics can be used to measure a website efficacy.
-                First, we have <strong>binomial (or discrete) metrics</strong>,
-                where only the two values 0 and 1 (or False and True) are possible.
+                To understand what A/B testing is about, let's consider
+                two alternative designs A and B. Visitors of a website
+                are randomly served with one of the two. Then, data about
+                their activity is collected by web analytics. Given this
+                data, one can apply statistical tests to determine whether
+                one of the two designs has better efficacy.
+            </p>
+            <p>
+                Now, different kinds of metrics can be used to measure a website efficacy.
+                With <strong>discrete metrics</strong>, also called <strong>binomial metrics</strong>,
+                only the two values <strong>0</strong> and <strong>1</strong> are possible.
+                The following are examples of popular discrete metrics.
             </p>
             <ul>
                 <li><a href="https://en.wikipedia.org/wiki/Click-through_rate">Click-through rate</a> — if a
@@ -128,51 +136,59 @@
                     user is shown an advertisement, do they convert into customers?
                 </li>
                 <li><a href="https://en.wikipedia.org/wiki/Bounce_rate">Bounce rate</a> — if a
-                    user is visits a website, is the next webpage they visit on the same website?
+                    user is visits a website, is the following visited page on the same website?
                 </li>
             </ul>
             <div style="text-align: center;">
-                <img src="../images/abtesting/ab_discrete.png" width="100%" alt="Discrete metrics: click-through rate.">
+                <img src="../images/abtesting/ab_discrete.png" width="90%" alt="Discrete metrics: click-through rate.">
             </div>
-            </p>
-            Second, we have <strong>non-binomial (or continuous) metrics</strong>,
-            where the possible values may take continuous values are not
-            limited to two discrete states.
+            <p></p>
+            <p>
+                With <strong>continuous metrics</strong>, also called <strong>non-binomial metrics</strong>,, the metric
+                may take
+                continuous values that are not limited to a set two discrete states.
+                The following are examples of popular continuous metrics.
             </p>
             <ul>
                 <li><a href="https://en.wikipedia.org/wiki/Average_revenue_per_user">Average revenue per user</a> —
                     how much revenue does a user generate in a month?
                 </li>
                 <li><a href="https://en.wikipedia.org/wiki/Session_(web_analytics)">Average session duration</a> —
-                    for how long does a user spend on a website in a session?
+                    for how long does a user stay on a website in a session?
                 </li>
                 <li><a href="https://www.optimizely.com/optimization-glossary/average-order-value/">Average order
                     value</a> — what is the total value of the order of a user?
                 </li>
             </ul>
             <div style="text-align: center;">
-                <img src="../images/abtesting/ab_continuous.png" width="100%"
+                <img src="../images/abtesting/ab_continuous.png" width="90%"
                      alt="Continuous metrics: average order value.">
             </div>
             <p>
-
+            </p>
+            <p>
+                We are going to see in detail how discrete and continuous metrics require
+                different statistical test. But first, let's quickly review some
+                fundamental concepts of statistics.
             </p>
             <h1>Statistical significance <a class="headerlink" id="he2" href="#he2"
                                             title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
             </h1>
             <p>
-                Once we have collected some data from the activity of the users
-                of our website, we can start comparing the efficacy of the two
+                With the data we collected from the activity of users
+                of our website, we can compare the efficacy of the two
                 designs A and B.
-                A simple comparison of the mean values obtained for the two samples
-                is not very meaningful, as what we have to compute is also the
-                <strong>statistical significance</strong>, i.e. determine how
+                Simply comparing mean values wouldn't be very meaningful, as we
+                would fail to assess the <strong>statistical significance</strong>
+                of our observations. It is indeed fundamental to determine how
                 likely it is that the observed discrepancy between the two samples
                 originates from chance.
             </p>
             <p>
-                The <strong>null hypothesis H<sub>0</sub></strong> of our test is
+                In order to do that, we will use a <a href="https://en.wikipedia.org/wiki/Two-sample_hypothesis_testing">
+                two-sample hypothesis test</a>.
+                Our <strong>null hypothesis H<sub>0</sub></strong> is
                 that the two designs A and B have the same efficacy, i.e. that they
                 produce an equivalent click-through rate, or average revenue per user, etc.
                 The statistical significance is then measured by the <strong>p-value</strong>,
@@ -180,13 +196,14 @@
                 at least as strong as the one that we actually observed.
             </p>
             <div style="text-align: center;">
-                <img src="../images/abtesting/p_val.png" width="100%"
+                <img src="../images/abtesting/p_val.png" width="90%"
                      alt="P-value.">
             </div>
+            <p></p>
             <p>
                 Now, some care has to be applied to properly choose
                 the <strong>alternative hypothesis H<sub>a</sub></strong>. This
-                choice corresponds to choosing between
+                choice corresponds to the choice between
                 <a href="https://en.wikipedia.org/wiki/One-_and_two-tailed_tests">
                     one- and two- tailed tests
                 </a>.
@@ -194,56 +211,60 @@
             <p>
                 A <strong>two-tailed test</strong> is preferable in our case, since
                 we have no reason to know a priori whether the discrepancy between
-                the results of A and B will be in favor of A or B. For this reason,
-                we will have to compute the p-value as the area under the the two tails of
-                the probability density function <strong>p(x)</strong> of a chosen test statistic on all
-                <strong>x'</strong> s.t. <strong>p(x') <= p(our observation)</strong>.
+                the results of A and B will be in favor of A or B. This means that
+                we consider the alternative hypothesis <strong>H<sub>a</sub></strong>
+                the hypothesis that A and B have different efficacy.
             </p>
             <div style="text-align: center;">
-                <img src="../images/abtesting/tails.png" width="100%"
+                <img src="../images/abtesting/tails.png" width="90%"
                      alt="One- and two- tailed tests.">
             </div>
+            <p></p>
             <p>
-                For A/B testing it is best to define <strong>H<sub>a</sub></strong>
-                as the hypothesis that A and B have different efficacy, as we have
-                no reason to make a priori assumptions on design A being better than B
-                or vice versa.
-            </p>
-            <p>
-                The computation of the p-value depends on the distribution of our
-                data. So we will see first how to compute the significance of an A/B test
-                with discrete data, and then how to do that if data are continuous.
+                The <strong>p-value</strong> is therefore computed as the area under the the two tails of
+                the probability density function <strong>p(x)</strong> of a chosen test statistic on all
+                <strong>x'</strong> s.t. <strong>p(x') <= p(our observation)</strong>.
+                The computation of such p-value clearly depends on the data distribution.
+                So we will first see how to compute it for discrete metrics, and
+                then for continuous metrics.
             </p>
             <h1>Discrete metrics <a class="headerlink" id="he3" href="#he3"
                                     title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
             </h1>
             <p>
-                Let's consider first discrete metrics, e.g. click-though rate. We
+                Let's first consider a discrete metric such as the click-though rate. We
                 randomly show visitors one of two possible designs of
-                an advertisement, and based on how many of them click on it we
-                need to determine whether our data significantly contradict the
-                hypothesis that the two designs are equivalently efficient.
+                an advertisement, and we keep track of how many of them click on it.
             </p>
             <p>
-                In the following example, let's say that the actual observations were the following:
-                15 visitors saw the advertisement A and 7 of them clicked on it, while
-                19 visitors saw the advertisement B and 15 of them clicked on it. At a first sight,
-                it looks like version B was more effective, but how statistically significant is this
-                discrepancy?
+                Let's say that from we collected the following information.
             </p>
+            <ul>
+                <li><strong>n<sub>X</sub> = 15</strong> visitors saw the advertisement A, and <strong>7</strong> of them
+                    clicked
+                on it.</li>
+                <li><strong>n<sub>Y</sub> = 19</strong> visitors saw the advertisement B, and <strong>15</strong> of them
+                    clicked
+                on it.</li>
+            </ul>
             <div style="text-align: center;">
                 <img src="../images/abtesting/fisher_cont_tables_1.png" width="70%"
                      alt="Click-through ratios: contingency table.">
             </div>
             <p></p>
-            <h2>Fisher's exact test <a class="headerlink" id="he3_1" href="#he3_1"
+            <p>
+                At a first glance, it looks like version B was more effective, but
+                how statistically significant is this discrepancy?
+            </p>
+
+            <h3>Fisher's exact test <a class="headerlink" id="he3_1" href="#he3_1"
                                        title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
-            </h2>
+            </h3>
             <p>
-                Since we have a 2x2 <a
-                    href="https://en.wikipedia.org/wiki/Contingency_table">contingency table
+                Using the 2x2 <a
+                    href="https://en.wikipedia.org/wiki/Contingency_table">contingency table shown above
             </a> we can use <a href="https://en.wikipedia.org/wiki/Fisher%27s_exact_test">
                 Fisher's exact test</a> to compute an exact p-value and test our hypothesis.
                 To understand how this test works, let us start by noticing that
@@ -255,38 +276,41 @@
                      alt="Click-through ratios: possible outcomes">
             </div>
             <p>
-                Now, the key observation is that the probability of each of these
-                possible outcomes is given by the <a
+                Now, the key observation is that, under the null hypothesis H<sub>0</sub>
+                that  A and B have same efficacy, the probability of observing
+                any of these possible outcomes is given by the <a
                     href="https://en.wikipedia.org/wiki/Hypergeometric_distribution">hypergeometric
                 distribution
             </a>.
             </p>
             <div style="text-align: center;">
-                <img src="../images/abtesting/hypergeom.png" width="100%"
+                <img src="../images/abtesting/hypergeom.png" width="90%"
                      alt="Click-through ratios: hypergeometric distribution">
             </div>
+            <p></p>
             <p>
-                By using this formula we can compute that, if A and B had equivalent efficacy, then
+                Using this formula we obtain that:
             </p>
             <ul>
-                <li>the probability of seeing our actual observations is ~4.5%</li>
+                <li>the probability of seeing our actual observations is <strong>~4.5%</strong></li>
                 <li>the probability of seeing even more unlikely observations in favor if B is
-                    ~1% (left tail)
+                    <strong>~1.0%</strong> (left tail);
                 </li>
                 <li>the probability of seeing observations even more unlikely observations in favor if A
-                    is ~2% (right tail)
+                    is <strong>~2.0%</strong> (right tail).
                 </li>
             </ul>
-            <p>So, using Fisher's exact test, we obtain p-value of ~7.5%.</p>
             <div style="text-align: center;">
                 <img src="../images/abtesting/fisher_hypergeom_distr.png" width="60%"
                      alt="Click-through ratios: tails and p-value">
             </div>
             <p></p>
-            <h2>Pearson's chi-squared test <a class="headerlink" id="he3_2" href="#he3_2"
+            <p>So Fisher's exact test gives <strong>p-value ≈ 7.5%</strong>.</p>
+
+            <h3>Pearson's chi-squared test <a class="headerlink" id="he3_2" href="#he3_2"
                                               title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
-            </h2>
+            </h3>
             <p>
                 Fisher's exact test has the important advantage of computing exact p-values.
                 But if we have a large sample size, it may be computationally
@@ -298,8 +322,7 @@
                 Let us call <strong>O<sub>ij</sub></strong> the observed value of
                 the contingency table at row <strong>i</strong> and column <strong>j</strong>.
                 Under the null hypothesis of independence of rows and columns, i.e.
-                assuming that seeing the design version A or B has no impact on the
-                likelihood of clicking on it,
+                assuming that A and B have same efficacy,
                 we can easily compute corresponding expected values <strong>E<sub>ij</sub></strong>.
                 Moreover, if the observations are normally distributed, then the χ<sup>2</sup>
                 statistic follows exactly a <a href="https://en.wikipedia.org/wiki/Chi-square_distribution">
@@ -307,57 +330,56 @@
             </a> with 1 degree of freedom.
             </p>
             <div style="text-align: center;">
-                <img src="../images/abtesting/chisq.png" width="100%"
-                     alt="Click-through ratios: tails and p-value">
+                <img src="../images/abtesting/chisq.png" width="90%"
+                     alt="Chi squared test">
             </div>
             <p></p>
             <p>
-                In fact, the test can also be used with non-normal observations, if the
-                sample size is large enough (thanks to the <a
-                    href="https://en.wikipedia.org/wiki/Central_limit_theorem">central limit theorem</a>).
-
-                But in our example the sample size is relatively small and
-                the p-value of Pearson's chi-square is ~5.1%, which is quite
-                different from the one we computed before with Fisher's exact
-                test.
+                In fact, this test can also be used with non-normal observations if the
+                sample size is large enough, thanks to the <a
+                    href="https://en.wikipedia.org/wiki/Central_limit_theorem">central limit theorem</a>.
+            </p>
+            <p>
+                In our example, using Pearson's chi-square test we obtain <strong>χ<sup>2</sup> ≈  3.825</strong>,
+                which
+                gives <strong>p-value ≈ 5.1%</strong>.
             </p>
             <h1>Continuous metrics <a class="headerlink" id="he4" href="#he4"
                                       title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
             </h1>
             <p>
-                Let's now consider the case of a continuous metrics, e.g. average revenue per user. We
-                randomly show visitors of our website one of two possible layouts of products for sale,
-                and based on how much revenue each user generated in a month we
-                want to determine whether our data significantly contradict the
-                hypothesis that the two website layouts are equivalently efficient.
+                Let's now consider the case of a continuous metric such as the average revenue per user.
+                We randomly show visitors one of two possible layouts of our website,
+                and based on how much revenue each user generates in a month we
+                want to determine if one of the two layouts is more efficient.
             </p>
             <p>
-                To make a concrete example, let's consider the following case.
+                Let's consider the following case.
             </p>
             <ul>
-                <li> <strong>n<sub>X</sub>=17</strong> users saw the layout A, and then made the following purchases:
-                200$, 150$, 250$, 350$, 150$, 150$, 350$, 250$, 150$, 250$, 150$, 150$, 200$, 0$, 0$, 100$, 50$.
-                We denote the i-th purchase by <strong>X<sub>i</sub></strong>.</li>
-                <li> <strong>n<sub>X</sub>=14</strong> users saw the layout B, and then made the following purchases:
-                300$, 150$, 150$, 400$, 250$, 250$, 150$, 200$, 250$, 150$, 300$, 200$, 250$, 200$.
-                We denote the i-th purchase by <strong>Y<sub>i</sub></strong>.
+                <li><strong>n<sub>X</sub> = 17</strong> users saw the layout A, and then made the following purchases:
+                    200$, 150$, 250$, 350$, 150$, 150$, 350$, 250$, 150$, 250$, 150$, 150$, 200$, 0$, 0$, 100$, 50$.
+                </li>
+                <li><strong>n<sub>X</sub> = 14</strong> users saw the layout B, and then made the following purchases:
+                    300$, 150$, 150$, 400$, 250$, 250$, 150$, 200$, 250$, 150$, 300$, 200$, 250$, 200$.
                 </li>
             </ul>
-            <p>
-                If we plot these values, at a first sight,
-                it looks like version B was more effective. But how statistically significant is this
-                discrepancy?
-            </p>
             <div style="text-align: center;">
                 <img src="../images/abtesting/cont_sample.png" width="60%"
                      alt="Average revenue per user: samples distribution">
             </div>
             <p></p>
-            <h2>Z-test <a class="headerlink" id="he4_1" href="#he4_1"
+            <p>
+                Again, at a first glance,
+                it looks like version B was more effective. But how statistically significant is this
+                discrepancy?
+            </p>
+
+            <h3>Z-test <a class="headerlink" id="he4_1" href="#he4_1"
                           title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
-            </h2>
+            </h3>
             <p>
                 The <a href="https://en.wikipedia.org/wiki/Z-test">Z-test</a> can be applied
                 under the following assumptions.
@@ -365,55 +387,67 @@
             <ul>
                 <li>The observations are normally distributed (or the sample size is large).</li>
                 <li>The sampling distributions have known variance <strong>σ<sub>X</sub></strong> and
-                <strong>σ<sub>Y</sub></strong>.</li>
+                    <strong>σ<sub>Y</sub></strong>.
+                </li>
             </ul>
             <p>
-                Under the above assumptions, the Z-test relies on the observation that
-                the following <strong>Z statistic</strong>  has a standard normal distribution.
+                Under the above assumptions, the Z-test exploits the fact that
+                the following <strong>Z statistic</strong> has a standard normal distribution.
             </p>
+            <div style="text-align: center;">
+                <img src="../images/abtesting/z_test.png" width="90%"
+                     alt="Z-test">
+            </div>
+            <p></p>
             <p>
                 Unfortunately in most real applications the standard deviations are
                 unknown and must be estimated, so a t-test is preferable, as we will see later.
-                 Anyway, if in our case we are told that
+                Anyway, if in our case we knew the true value of
                 <strong>σ<sub>X</sub>=100</strong> and <strong>σ<sub>X</sub>=90</strong>,
-                then we obtain <strong>z=-1.697</strong>, which corresponds to a <strong>p<sub>val</sub>=9%</strong>.
+                then we would obtain <strong>z ≈ -1.697</strong>, which corresponds to a <strong>p-value ≈ 9%</strong>.
             </p>
             <p></p>
-            <h2>Student's t-test <a class="headerlink" id="he4_2" href="#he4_2"
+            <h3>Student's t-test <a class="headerlink" id="he4_2" href="#he4_2"
                                     title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
-            </h2>
+            </h3>
             <p>
                 In most cases, the variances of the sampling distributions are unknown,
                 so that we need to estimate them.
                 <a href="https://en.wikipedia.org/wiki/Student%27s_t-test">Student's t-test</a> can
-                then be applied  under the following assumptions.
+                then be applied under the following assumptions.
             </p>
             <ul>
                 <li>The observations are normally distributed (or the sample size is large).</li>
-                <li>The sampling distributions have "similar" variances <strong>σ<sub>X</sub></strong> ≈
-                <strong>σ<sub>Y</sub></strong>.</li>
+                <li>The sampling distributions have "similar" variances <strong>σ<sub>X</sub> ≈
+                    σ<sub>Y</sub></strong>.
+                </li>
             </ul>
             <p>
                 Under the above assumptions, Student's t-test relies on the observation that
-                the following <strong>t statistic</strong>  has a Student's t distribution.
+                the following <strong>t statistic</strong> has a Student's t distribution.
             </p>
             <div style="text-align: center;">
-                <img src="../images/abtesting/test_t_stud.png" width="100%"
+                <img src="../images/abtesting/test_t_stud.png" width="90%"
                      alt="Student's t-test">
             </div>
+            <p></p>
             <p>
                 Here <strong>S<sub>P</sub></strong> is the <a href="https://en.wikipedia.org/wiki/Pooled_variance">
                 pooled variance
             </a> obtained from the sample variances <strong>S<sub>X</sub></strong> and <strong>S
-                <sub>Y</sub></strong>, which are computed using the unbiased formula including <a
+                <sub>Y</sub></strong>, which are computed using the unbiased formula that applies <a
                     href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel's correction
             </a>).
             </p>
-            <h2>Welch's t-test <a class="headerlink" id="he4_3" href="#he4_3"
+            <p>
+                In our example, using Student's t-test we obtain <strong>t ≈ -1.789</strong> and
+                <strong>ν = 29</strong>, which give  <strong>p-value ≈ 8.4%</strong>.
+            </p>
+            <h3>Welch's t-test <a class="headerlink" id="he4_3" href="#he4_3"
                                   title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
-            </h2>
+            </h3>
             <p>
                 In most cases Student's t test can be effectively applied with good results.
                 However, it may rarely happen that its second assumption (similar variance
@@ -429,17 +463,22 @@
                 of degrees of freedom <strong>ν</strong>.
             </p>
             <div style="text-align: center;">
-                <img src="../images/abtesting/test_t_welch.png" width="100%"
-                     alt="Student's t-test">
+                <img src="../images/abtesting/test_t_welch.png" width="90%"
+                     alt="Welch's t-test">
             </div>
+            <p></p>
             <p>
                 The complex formula for <strong>ν</strong> comes from
                 <a href="https://en.wikipedia.org/wiki/Welch%E2%80%93Satterthwaite_equation">
                     Welch–Satterthwaite equation
                 </a>.
             </p>
+            <p>
+                In our example, using Welch's t-test we obtain <strong>t ≈ -1.848</strong> and
+                <strong>ν ≈ 28.51</strong>, which give  <strong>p-value ≈ 7.5%</strong>.
+            </p>
             <h1>Continuous non-normal metrics <a class="headerlink" id="he5" href="#he5"
-                                      title="Permalink to this headline"><i
+                                                 title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
             </h1>
             <p>
@@ -451,10 +490,11 @@
             </p>
             <ul>
                 <li><a href="https://en.wikipedia.org/wiki/Zero-inflated_model">
-                zero-inflated distributions
-            </a> — most user don't buy anything at all, so lots of zero observations;</li>
+                    zero-inflated distributions
+                </a> — most user don't buy anything at all, so lots of zero observations;
+                </li>
                 <li><a href="https://en.wikipedia.org/wiki/Multimodal_distribution">multimodal distributions</a> —
-                a market segment tends purchases cheap products, while
+                    a market segment tends purchases cheap products, while
                     another segment purchases more expensive products.
                 </li>
             </ul>
@@ -462,41 +502,43 @@
                 <img src="../images/abtesting/non_normal_test_stat_distr.png" width="50%"
                      alt="Zero-inflated non-normal distribution">
             </div>
+            <p></p>
             <p>
                 However, if we have enough samples, tests derived under normality
                 assumptions like Z-test, Student's t-test, and Welch's t-test can
-                still be applied for observations that signficantly deviate  from
+                still be applied for observations that signficantly deviate from
                 normality. Indeed, thanks to the <a
                     href="https://en.wikipedia.org/wiki/Central_limit_theorem">central limit theorem</a>,
                 the distribution of the test statistics tends
                 to normality as the sample size increases. In the zero-inflated
                 and multimodal example we are considering, even a sample size
-                of 40 produces a fairly normal distribution.
+                of 40 produces a distribution that is well approximated by a normal distribution.
             </p>
             <div style="text-align: center;">
-                <img src="../images/abtesting/non_norm_clt.png" width="100%"
-                     alt="Zero-inflated non-normal distribution">
+                <img src="../images/abtesting/non_norm_clt.png" width="90%"
+                     alt="Convergence to normality of a non-normal distribution">
             </div>
             <p></p>
             <p>
                 But if the sample size is still too small to assume normality,
-                we can use an alternative, non-parametric approach such as the
+                we have no other choice than using a non-parametric approach such as the
                 Mann-Whitney U test.
             </p>
-            <h2>Mann–Whitney U test<a class="headerlink" id="he5_1" href="#he5_1"
-                                  title="Permalink to this headline"><i
+            <h3>Mann–Whitney U test<a class="headerlink" id="he5_1" href="#he5_1"
+                                      title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
-            </h2>
+            </h3>
             <p>
-                This test makes the least assumptions about the nature of our observations,
-                as it is fully nonparametric.
+                This test makes no assumption on the nature of the sampling
+                distributions, so it is fully nonparametric.
                 The idea of <a href="https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test">Mann-Whitney U test</a>
                 is to compute the following <strong>U statistic</strong>.
             </p>
             <div style="text-align: center;">
-                <img src="../images/abtesting/test_u.png" width="100%"
+                <img src="../images/abtesting/test_u.png" width="90%"
                      alt="Mann–Whitney U test">
             </div>
+            <p></p>
             <p>
                 The values of this test statistic are tabulated, as the distribution
                 can be computed under the null hypothesis that, for
@@ -505,23 +547,35 @@
                 the probability <strong>P(X < Y)</strong> is the same as
                 <strong>P(X > Y)</strong>.
             </p>
-            <h1>Conclusions <a class="headerlink" id="he6" href="#he6"
-                                  title="Permalink to this headline"><i
+            <p>
+                In our example, using Mann-Whitney U test we obtain
+                <strong>u = 76</strong> which gives
+                <strong>p-value ≈ 8.0%</strong>.
+            </p>
+
+            <h1>Conclusion <a class="headerlink" id="he6" href="#he6"
+                               title="Permalink to this headline"><i
                     class="fas fa-link"></i></a>
             </h1>
             <p>
-                We have seen that different kinds of metrics and observations
-                require different kinds of statistical tests to measure the
-                significance of the results obtained with A/B testing.
-                The following diagram provides an overview of the methods
-                presented in this article in the form of a decision tree.
+                In this article we have seen that different kinds of metrics,
+                sample size, and sampling distributions
+                require different kinds of statistical tests for computing the
+                the significance of A/B tests.
+                We can summarize all these possibilities in the form of a decision tree.
             </p>
-<!--            TODO: add computation of p-vals for all tests!-->
-<!--            TODO: add link to notebook!-->
             <div style="text-align: center;">
-                <img src="../images/abtesting/summary.png" width="100%"
+                <img src="../images/abtesting/summary.png" width="90%"
                      alt="Summary of the statistical tests to be used for A/B testing">
             </div>
+            <p></p>
+            <p>
+                If you want to know more, you can start by playing with
+                <a href="https://github.com/FrancescoCasalegno/AB_Testing/blob/main/AB_Testing.ipynb">
+                    this notebook
+                </a> where you can see all the examples discussed in
+                this article.
+            </p>
         </div>
     </div>
 </div>
