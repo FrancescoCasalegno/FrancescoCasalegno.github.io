@@ -1,5 +1,5 @@
 body {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     color: #ccc;
     background-color: #202123;
@@ -155,31 +155,31 @@ img::-moz-selection {
 }
 
 #mainNav .navbar-brand {
-    font-size: 16px;
+    font-size: 18px;
     color: #eb1b61;
     font-weight: 900;
 }
 
 #mainNav button.navbar-toggler {
     color: #ccc;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 #navbarResponsive ul.navbar-nav li.nav-item a.nav-link {
     color: #ccc;
-    font-size: 16px;
+    font-size: 18px;
     padding: 10px 20px;
 }
 
 #navbarResponsive ul.navbar-nav li.nav-item a.nav-link.nav-currentpage {
     color: #eb1b61;
-    font-size: 16px;
+    font-size: 18px;
     padding: 10px 20px;
 }
 
 #navbarResponsive ul.navbar-nav li.nav-item a.nav-link:hover {
     color: #eb1b61;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 
@@ -192,7 +192,7 @@ img::-moz-selection {
 }
 
 #mainNav .navbar-nav > li.nav-item > a {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 800;
     letter-spacing: 1px;
     /*text-transform: uppercase;*/
@@ -253,7 +253,7 @@ img::-moz-selection {
     }
 
     #mainNav.is-fixed .navbar-brand {
-        font-size: 16px;
+        font-size: 18px;
         color: #eb1b61;
         navbar-brand: 900;
     }
@@ -357,7 +357,7 @@ header.masthead .post-heading {
 }
 
 header.masthead .post-heading .meta {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 300;
     font-style: italic;
     font-family: 'open sans', 'Helvetica Neue', sans-serif;
@@ -400,7 +400,7 @@ header.masthead .post-heading .meta a {
 }
 
 .post-preview .post-meta {
-    font-size: 16px;
+    font-size: 18px;
     /*font-style: italic;*/
     margin-top: 0;
     color: #ccc;
@@ -520,7 +520,7 @@ footer .copyright {
 }
 
 .btn-lg {
-    font-size: 16px;
+    font-size: 18px;
     padding: 25px 35px;
 }
 
@@ -576,7 +576,7 @@ div.gallery img {
 div.desc {
     padding: 15px;
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 a h2.post-title, a p {
