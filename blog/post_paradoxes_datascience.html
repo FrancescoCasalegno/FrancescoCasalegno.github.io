@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--  Favicon  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
+    <link rel="manifest" href="../favicons/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicons/favicon.ico">
+
+    <!-- Meta Info -->
+    <title>Francesco Casalegno - Personal Website</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Francesco Casalegno's personal website">
+    <meta name="keywords" content="personal website, blog, data science, machine learning">
+    <meta name="author" content="Francesco Casalegno">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="Top 3 Statistical Paradoxes in Data Science">
+    <meta property="og:description"
+          content="Observations biases and sub-group differences can produce statistical paradoxes.">
+    <meta property="og:image" content="https://francescocasalegno.github.io/images/home-bg.jpg">
+    <meta property="og:url" content="http://francescocasalegno.github.io/blog/post_paradoxes_datascience.html">
+    <meta property="og:site_name" content="Francesco Casalegno's personal website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/0bff17aed7.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/darcula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/languages/python.min.js"
+            integrity="sha512-5IwlvN3ATowZMxsKB/BwpqzQuUA/6PBVTrf/6cZ452Sl7TGWqqd0I0r8M9SHmF5C6hh0gCOLRSyDwQEeyEQ3Dw=="
+            crossorigin="anonymous"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">Francesco Casalegno</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-currentpage" href="../blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../resume.html">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Statistical Paradoxes</h1>
+                    <h2>Top 3 Paradoxes in Data Science</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <p>Observations biases and sub-group differences can easily produce
+                <strong>statistical paradoxes</strong> in any data science application.
+                Ignoring these elements can therefore completely undermine the
+                conclusions of our analysis.
+            </p>
+            <p>It is indeed not unusual to observe surprising phenomena such as <strong>sub-groups trends that are
+                completely reverted in the aggregated data</strong>.
+                In this article we look at the 3 most common kinds of statistical paradoxes encountered in Data
+                Science.
+            </p>
+            <h1>Berkson's Paradox <a id="he1" href="#he1"
+                                        title="Permalink to this headline"><i
+                    class="fas fa-link"></i></a></h1>
+            <p>
+                A first striking example is the observed <strong>negative association
+                between COVID-19 severity and smoking cigarettes</strong> (see e.g. the
+                European Commission review by
+                <a href="https://ec.europa.eu/jrc/en/publication/smoking-and-covid-19-review-studies-suggesting-protective-effect-smoking-against-covid-19">Wenzel 2020</a>).
+                Smoking cigarettes is a well-known risk factor for respiratory diseases, so how do
+                we explain this contradiction?
+            </p>
+            <p>
+                The work of <a href="https://www.nature.com/articles/s41467-020-19478-2">Griffith 2020</a> recently
+                published on Nature suggests that this can be a case of
+                <strong>Collider Bias</strong>, also called <a href="https://en.wikipedia.org/wiki/Berkson's_paradox"><strong>Berkson's Paradox</strong></a>. To
+                understand this paradox, let us consider the following graphical model,
+                where we include a third random variable: "being hospitalized".
+            </p>
+
+
+
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://www.linkedin.com/in/francescocasalegno/">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/FrancescoCasalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://medium.com/@francesco.casalegno">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-medium-m fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <p class="copyright text-muted">Copyright &copy; Francesco Casalegno 2020</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+<!-- Custom scripts for this template -->
+
+</body>
+</html>
