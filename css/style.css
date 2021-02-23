@@ -1,9 +1,38 @@
 body {
     font-size: 18px;
+    font-weight: 400;
     color: #ccc;
     background-color: #202123;
-    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    font-family: 'open sans', 'Helvetica Neue', sans-serif;
 }
+
+.blog-post {
+    margin-bottom: 20px;
+}
+
+.box-shadow {
+    background-color: #555;
+}
+
+.blog-post .box-shadow:hover {
+    background-color: #ccc;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+.card-body{
+    background-color: #202123;
+}
+
+/*.blog-post {*/
+/*  transition: top ease 0.5s;*/
+/*}*/
+/*.blog-post:hover {*/
+/*    top: -5px;*/
+/*    left: 5px;*/
+/*}*/
 
 a {
     color: #ccc;
@@ -331,7 +360,7 @@ header.masthead .post-heading .meta {
     font-size: 18px;
     font-weight: 300;
     font-style: italic;
-    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    font-family: 'open sans', 'Helvetica Neue', sans-serif;
 }
 
 header.masthead .post-heading .meta a {
@@ -416,13 +445,13 @@ header.masthead .post-heading .meta a {
     border-radius: 0;
     background: none;
     box-shadow: none !important;
-    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    font-family: 'open sans', 'Helvetica Neue', sans-serif;
 }
 
 .floating-label-form-group input::-webkit-input-placeholder,
 .floating-label-form-group textarea::-webkit-input-placeholder {
     color: #ccc;
-    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    font-family: 'open sans', 'Helvetica Neue', sans-serif;
 }
 
 .floating-label-form-group label {
@@ -491,7 +520,7 @@ footer .copyright {
 }
 
 .btn-lg {
-    font-size: 16px;
+    font-size: 18px;
     padding: 25px 35px;
 }
 
@@ -547,7 +576,7 @@ div.gallery img {
 div.desc {
     padding: 15px;
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 a h2.post-title, a p {
